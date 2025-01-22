@@ -23,23 +23,23 @@
 
     @stack('styles') {{-- Inclure les styles spécifiques à une page --}}
     <style>
-    .sidebar-brand {
-        /* display: flex; */
-        align-items: center;
-        justify-content: center;
-        /* height: 3.5rem; */
-        height: 6em;
-        padding: 0.8125rem 0.5rem;
-        overflow: hidden;
-        font-size: 1.25rem;
-        white-space: nowrap;
-        transition: width 0.3s ease-in-out;
-        border-bottom: #010140;
-    }
+        .sidebar-brand {
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            /* height: 3.5rem; */
+            height: 6em;
+            padding: 0.8125rem 0.5rem;
+            overflow: hidden;
+            font-size: 1.25rem;
+            white-space: nowrap;
+            transition: width 0.3s ease-in-out;
+            border-bottom: #010140;
+        }
 
-    .brand-image {
-        min-height: 6em;
-    }
+        .brand-image {
+            min-height: 6em;
+        }
     </style>
 </head>
 

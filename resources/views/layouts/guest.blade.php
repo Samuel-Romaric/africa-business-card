@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('/admin/css/adminlte.css') }}">
     <link rel="shortcut icon" href="{{ asset('/admin/assets/logo.png') }}" type="image/x-icon">
-    <title>{{ config('app.name') }} | @yield('title')</title>
+    <title>@yield('title') {{ config('app.name') }}</title>
     <style>
         * {
             margin: 0;

@@ -14,7 +14,7 @@ class Product extends Model implements HasMedia
         'name',
         'slug',
         'quantity',
-        'price'
+        'price',
     ];
 
     function manager() {

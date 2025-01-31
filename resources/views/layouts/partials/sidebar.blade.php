@@ -1,17 +1,7 @@
 <aside class="app-sidebar " data-bs-theme="dark" style="background-color:#010140;color:white">
-    <!--begin::Sidebar Brand-->
-    <div class="sidebar-brand">
-        <!--begin::Brand Link--> <a href="{{ route('admin.dashboard') }}" class="brand-link">
-            <!--begin::Brand Image--> <img src="{{ asset('/admin/assets/logo.png') }}" style="width: auto; height: 8em; display: block; margin: auto" alt="Africa business card Logo"
-                class="brand-image  shadow">
-            <!--end::Brand Image-->
-        </a>
-        <!--end::Brand Link-->
-    </div>
-    <!--end::Sidebar Brand-->
-    <!--begin::Sidebar Wrapper-->
-
     <div class="sidebar-wrapper">
+        <img src="{{ asset('/admin/assets/logo.png') }}" style="width: auto; height: 8em; display: block; margin: auto" alt="Africa business card Logo"
+                class="brand-image  shadow">
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                             data-accordion="false">
@@ -29,13 +19,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.business.index') }}" class="nav-link {{ isActiveRoute('admin.business.index') }}" style="color:white">
+                            <a href="{{ route('admin.business.index') }}" class="nav-link {{ isActiveRoute('admin.business.index') }} {{ isActiveRoute('admin.business.show') }}" style="color:white">
                                 <i class="nav-icon bi bi-house-gear text-white"></i>
                                 <p>Entreprise</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" style="color:white">
+                            <a href="{{ route('admin.sales.index') }}" class="nav-link {{ isActiveRoute('admin.sales.index') }}" style="color:white">
                                 <i class="nav-icon bi bi-bag text-white"></i>
                                 <p>Ventes</p>
                             </a>

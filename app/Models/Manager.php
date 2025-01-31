@@ -37,11 +37,11 @@ class Manager extends Model implements HasMedia
 
     public function getCoverFullUrl()
     {
-        if (is_null($this->getFirstMedia('cover'))) {
-            return asset('admin/assets/img/cover.png');
+        if (is_null($this->getFirstMedia('avatar'))) {
+            return asset('admin/assets/img/avatar.png');
         }
 
-        return $this->getFirstMedia('cover')->getFullUrl();
+        return $this->getFirstMedia('avatar')->getFullUrl();
     }
 
 }

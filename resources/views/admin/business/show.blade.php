@@ -1,27 +1,23 @@
 @extends('layouts.app')
 
-@section('title', '| Manager')
+@section('title', 'Entreprise - Produits | ')
 
 @push('styles')
-{{-- <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Tangerine"> --}}
-{{-- <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Century+gothic"> --}}
 <style>
     .banner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-         background-color: #FFD600; /* Couleur jaune */
-        /* background-color: #fbf3c4; */
+         /* background-color: #FFD600; Couleur jaune */
+        background-color: #fbf3c4;
         padding: 20px 40px;
         border-radius: 15px;
         width: 158vh;
         height: 180px;
+        margin-left: 10px;
     }
 
     .banner .logo {
-        /* background-color: black; */
         background-color: #001a4d;
         color: white;
         font-size: 36px;
@@ -57,8 +53,9 @@
 
     .description {
         /* font-style: italic; */
-        font-size: 16px;
-        color: #555555;
+        font-size: 15px;
+        color: #777676;
+        padding-bottom: 8px;
     }
 
     .business {
@@ -76,6 +73,25 @@
     .btn-outline-primary:hover {
         background-color: #3f50d5;
         border-color: #3f50d5;
+    }
+
+    .product-title {
+        color: #001a4d;
+        font-size: 25px;
+    }
+
+    .information {
+        display: grid;
+        grid-template-columns: auto auto; /* Deux colonnes */
+        justify-content: space-between;
+        width: 100%;
+        padding: 5px 0px 5px 0px;
+        /* border: 1px solid #ddd; */
+    }
+
+    .price {
+        padding: 5px 0px 5px 0px;
+        color: #948c8c;
     }
 </style>
 @endpush
@@ -102,21 +118,20 @@
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">
-                    {{-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label> --}}
                     <div class="col-sm-10" style="transform: translate(60px)">
                         <input type="text" class="form-control" placeholder="Rechercher..." id="inputPassword">
                     </div>
                 </div>
                 <ol class="breadcrumb float-sm-center">
                     {{-- <label for="exampleDataList" class="form-label">Filtre</label>
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Rechercher..."> --}}
-                    {{-- <div class="mb-3 row">
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Rechercher...">
+                    <div class="mb-3 row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="inputPassword">
                         </div>
-                    </div> --}}
-                    {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    </div>
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Dashboard
                     </li> --}}
@@ -134,31 +149,35 @@
             @forelse ($products as $product)
             <div class="col-md-4">
                 <div class="card h-100" style="width: 18rem;">
-                    <img src="{{ $product->getCoverProductFullUrl() }}" style="height: 220px" class="card-img-top" alt="...">
+                    <img src="{{ $product->getCoverProductFullUrl() }}" style="height: 220px; width: auto" class="card-img-top" alt="...">
                     <div class="card-body" style="margin-bottom: -12px;">
-                        <h1 class="card-title">
-                            <span class="badge text-bg-secondary">{{ $product->name }}</span>
-                        </h1><br>
-                        <p class="card-text">
+                        {{-- <h1 class="card-title">
+                            <span class="product-title">{{ $product->name }}</span>
+                        </h1> --}}
+                        <div class="information">
+                            <span class="product-title">{{ $product->name }}</span>
+                            <span class="price">{{ $product->price }} F</span>
+                            {{-- <span class="quantity">Stock : {{ $product->quantity }}</span> --}}
+                        </div>
+                        <div class="card-text">
                             <div class="description">
                                 {{ \Str::limit($product->description, 80) }} <br>
                                 <div class="d-grid">
-                                    <a href="#" class="btn btn-sm btn-outline-primary mt-2">
-                                        Vendre <i class="bi bi-cash"></i>
+                                    <a href="javascript:void(0)" onclick="openModal({{ $product->id }})" class="btn btn-sm btn-outline-primary mt-2">
+                                        Faire une vente <i class="bi bi-cash"></i>
                                     </a>
                                 </div>
                             </div>
-                        </p>
+                        </div>
                     </div>
                     <div class="card-footer text-body-secondary">
                         <div class="d-flex">
                             <div class="flex-shrink-0">
-                              <img src="{{ asset('/admin/assets/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3">
+                              <img src="{{ asset('/admin/assets/img/avatar-1.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3">
                             </div>
                             <div class="flex-grow-1">
                               <h3 class="dropdown-item-title">
                                 {{ $product->manager->name }}
-                                {{-- <span class="float-end fs-7 text-secondary"><i class="bi bi-clock-fill me-1"></i></span> --}}
                               </h3>
                               <p class="fs-7">Manager chez {{ $business->name }}</p>
                             </div>
@@ -186,8 +205,30 @@
     <!--end::Container-->
 </div>
 
+@include('admin.business.modals.sale-modal')
 @endsection
 
-@push('styles')
 
+
+@push('scripts')
+<script>    
+    function openModal(product_id) {
+        $('#saleProductForm').trigger('reset');
+        $('#product_id').val(product_id);
+        
+        $('#saleModal').modal('show');
+    }
+
+    $('#saleProductBtn').on('click', function (e) {
+        e.preventDefault();
+
+        const form = $('#saleProductForm')[0];
+
+        if (form.reportValidity()) {
+            $('#saleProductForm').submit();
+        } else {
+            form.reportValidity();
+        }
+    });
+</script>
 @endpush

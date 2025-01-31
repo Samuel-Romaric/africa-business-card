@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+
             $table->string('code');
             $table->string('amount_received');
-            // $table->string('');
+            $table->string('price');
+            $table->string('quantity');
+            
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('business_id')->constrained()->onDelete('cascade');
             $table->foreignId('manager_id')->constrained()->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

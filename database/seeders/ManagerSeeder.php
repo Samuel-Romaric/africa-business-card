@@ -24,7 +24,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Abidjan, Côte d\'Ivoire',
                 'business_id' => 1,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],
             [
                 'name' => 'Bigolo Hosty',
@@ -34,7 +34,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Paris, France',
                 'business_id' => 2,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],
             [
                 'name' => 'Maria Doloty',
@@ -44,7 +44,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Cotonou, Benin',
                 'business_id' => 1,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],
             [
                 'name' => 'Anicette Baroli',
@@ -54,7 +54,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Abidjan, Côte d\Ivoire',
                 'business_id' => 2,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],
             [
                 'name' => 'Marise Dukobu',
@@ -64,7 +64,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Bouaké, Côte d\Ivoire',
                 'business_id' => 3,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],[
                 'name' => 'Chancelle Dupied',
                 'email' => 'dupeid@business.com',
@@ -73,7 +73,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Sans-Pédro, Côte d\'Ivoire',
                 'business_id' => 4,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],
             [
                 'name' => 'Aladin Timoria',
@@ -83,7 +83,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Nice, France',
                 'business_id' => 3,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],[
                 'name' => 'Daril Placide',
                 'email' => 'placide@business.com',
@@ -92,7 +92,7 @@ class ManagerSeeder extends Seeder
                 'location' => 'Los Angeles, USA',
                 'business_id' => 4,
                 'code' => 'CO-101',
-                'cover' => public_path() . '/admin/assets/img/boxed-bg.jpg',
+                'cover' => public_path() . '/admin/assets/img/boxed-bg.png',
             ],
         ];
 

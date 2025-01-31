@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '| Manager')
+@section('title', 'Manager |')
 
 @push('styles')
 <style>
@@ -101,7 +101,6 @@
     </div>
     <!--end::Container-->
 </div>
-
 @endsection
 
 @push('styles')

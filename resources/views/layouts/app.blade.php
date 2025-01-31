@@ -8,7 +8,7 @@
     <meta name="author" content="ColorlibHQ">
     <meta name="description" content="AdminLTE is a Free Bootstrap 5 Admin Dashboard.">
     <meta name="keywords" content="bootstrap 5, admin dashboard, etc.">
-    <title>{{ config('app.name') }} @yield('title', 'Dashboard')</title>
+    <title>@yield('title', 'Dashboard |') {{ config('app.name') }} </title>
 
     <link rel="shortcut icon" href="{{ asset('/admin/assets/logo.png') }}" type="image/x-icon">
 
@@ -20,14 +20,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('/admin/css/adminlte.css') }}">
+    <link rel="stylesheet" href="{{ asset('/admin/css/flash.css') }}">
 
-    @stack('styles') {{-- Inclure les styles spécifiques à une page --}}
+    @stack('styles') <!-- Inclure les styles spécifiques à une page -->
     <style>
-        .sidebar-brand {
-            /* display: flex; */
+        /* .sidebar-brand {
+            flex-grow: 1;
+            display: flex;
             align-items: center;
             justify-content: center;
-            /* height: 3.5rem; */
             height: 6em;
             padding: 0.8125rem 0.5rem;
             overflow: hidden;
@@ -39,26 +40,30 @@
 
         .brand-image {
             min-height: 6em;
+        } */
+
+        .app-wrapper, .app-header, .app-main {
+            background-color: white !important;
         }
     </style>
 </head>
 
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary" style="background-color:White">
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     
-    <div class="app-wrapper" style="background-color:white">
-        <nav class="app-header navbar navbar-expand bg-body" style="background-color:white">
+    <div class="app-wrapper">
+        <nav class="app-header navbar navbar-expand bg-body">
             <!--begin::Container-->
             <div class="container-fluid">
                 <!--begin::Start Navbar Links-->
                 
                 <ul class="navbar-nav ms-auto">
                     <!--begin::Navbar Search-->
-                    <li class="nav-item"> <a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i
-                                data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i
-                                data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i> </a>
+                    <li class="nav-item"> <a class="nav-link" href="#" data-lte-toggle="fullscreen"> 
+                        <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
+                        <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i> </a>
                     </li>
                     <!--end::Fullscreen Toggle-->
-                    <!--begin::User Menu Dropdown asset('/admin/assets/img/user2-160x160.jpg') -->
+                    <!--begin::User Menu Dropdown -->
                     <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle"
                             data-bs-toggle="dropdown"> <img src="{{ \Auth::user()->getAvatarFullUrl() }}"
                                 class="user-image rounded-circle shadow" alt="User Image"><span
@@ -69,7 +74,7 @@
                                     class="rounded-circle shadow" alt="User Image">
                                 <p>
                                     {{ \Auth::user()->name }} - Administrateur
-                                    <small>Member since Nov. 2023</small>
+                                    <small>Membre depuis Nov. 2025</small>
                                 </p>
                             </li>
                             <!--end::User Image-->
@@ -98,16 +103,32 @@
             <!--end::Container-->
         </nav>
         <!--end::Header-->
+
         <!--begin::Sidebar-->
         @include('layouts.partials.sidebar')
         <!--end::Sidebar-->
-        <!--begin::App Main-->
 
-        <main class="app-main" style="background-color:white">
+        <!--begin::App Main-->
+        <main class="app-main" style="background-color:#ffffff">
 
             @yield('content') <!-- Section pour le contenu principal -->
+
+            @include('layouts.partials.message.flash')
             
         </main>
+        <!--end::App Main-->
+        <!--begin::Footer-->
+        {{-- <footer class="app-footer">
+            <!--begin::To the end-->
+            <div class="float-end d-none d-sm-inline">Anything you want</div>
+            <!--end::To the end-->
+            <!--begin::Copyright-->
+            <strong>Copyright &copy; 2014-2024&nbsp;
+                <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+            </strong>
+            All rights reserved.
+            <!--end::Copyright-->
+        </footer> --}}
     </div>
 
     <!-- Global scripts -->
@@ -118,6 +139,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous">
     </script>
     <script src="{{ asset('/admin/js/adminlte.js') }}"></script>
+    <script src="{{  asset('/admin/js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{  asset('/admin/js/flash.js')}}"></script>
 
     @stack('scripts') {{-- Inclure les scripts spécifiques à une page --}}
 </body>

@@ -15,7 +15,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.manager.index') }}" class="nav-link {{ isActiveRoute('admin.manager.index') }}" style="color:white">
                                 <i class="nav-icon bi bi-kanban text-white"></i>
-                                <p>Manager</p>
+                                <p>Managers</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -27,7 +27,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.business.index') }}" class="nav-link {{ isActiveRoute('admin.business.index') }} {{ isActiveRoute('admin.business.show') }}" style="color:white">
                                 <i class="nav-icon bi bi-house-gear text-white"></i>
-                                <p>Entreprise</p>
+                                <p>Entreprises</p>
                             </a>
                         </li>
                         <li class="nav-item">

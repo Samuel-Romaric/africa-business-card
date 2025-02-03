@@ -85,7 +85,7 @@
                         <th>Entreprises</th>
                         <th>Manager</th>
                         <th>Quatité vendu</th>
-                        <th>Quatité vendu</th>
+                        <th>Prix unitaire</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -98,11 +98,11 @@
                         <td>{{ $item->quantity }}</td>
                         <td>{{ $item->amount_received }}</td>
                         <td>
-                            <a href="javascript:void(0)" onclick=""  class="btn btn-outline-success btn-sm">
+                            <a href="javascript:void(0)" onclick="openUpdateModal({{ $item->id }})"  class="btn btn-outline-success btn-sm">
                                 <i class="bi bi-pencil-square"></i> Modifier
-                                {{-- openUpdateModal({{ $item->id }}) --}}
+                                
                             </a>
-                            <a onclick="" href="javascript:void(0)" class="btn btn-outline-danger btn-sm">
+                            <a onclick="return confirm('Voulez-vous supprimer cette vente ?')" href="{{ route('admin.sale.delete', $item->id) }}" class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-trash"></i> Supprimer
                             </a>
                         </td> 
@@ -125,8 +125,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/r-3.0.3/datatables.min.js"></script>
+<script src="{{ asset('admin/js/sweetalert2@11.js') }}"></script>
 <script>
-    // let update_sale_route = "{{-- route('admin.sales.show', $item->id) --}}";
+    let get_sale_route = "{{ route('admin.sale.get-by-ajax') }}";
 
     $(document).ready(function () {
         $('#Table').DataTable({
@@ -143,9 +144,40 @@
     });
 
         
-    function openUpdateModal(product_id) {
+    function openUpdateModal(sale_id) {
         $('#updateSaleProductForm').trigger('reset');
-        $('#product_id').val(product_id);
+        // $('#sale_id').val(sale_id);
+        console.log(sale_id);
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: get_sale_route+"?item_id="+sale_id,
+            success: function(result) {
+                console.log(result);
+                
+                if (result.action == true) {
+
+                    $('#code').val(result.data.code);
+                    $('#quantity').val(result.data.quantity);
+                    $('#amount_received').val(result.data.amount_received);
+                    $('#sale_id').val(result.data.id);
+
+                } else {
+                    // toastr.error(result.message);
+                    console.log('No data find...');
+                    
+                }
+            },
+            error: (e) => {
+                console.log(e);
+                console.log(e.responseJSON);
+            }
+        });
         
         $('#saleUpdateModal').modal('show');
     }
@@ -161,6 +193,51 @@
             form.reportValidity();
         }
     });
+
+    // function deleteItem(item_id) {
+    //     if (item_id != "") {
+    //         Swal.fire({
+    //             title: 'Voulez vous bloquer ce commentaire?',
+    //             icon: 'warning',
+    //             showCloseButton: true,
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Oui',
+    //             cancelButtonText: 'Non',
+    //         }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 _sendRequest(url_make_action, item_id, 'POST');
+    //             }
+    //         });
+    //     }
+    // }
+
+    function get_item(url, item_id) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: url+"?item_id="+item_id,
+            success: function(result) {
+                console.log(result);
+                if (result.action == true) {
+
+                    $('#titleU').val(result.data.title);
+                    $('#iconU').val(result.data.icon);
+                    $('#descriptionU').val(result.data.description);
+
+                } else {
+                    toastr.error(result.message);
+                }
+            },
+            error: (e) => {
+                console.log(e);
+                console.log(e.responseJSON);
+            }
+        });
+    }
 
 </script>
 @endpush

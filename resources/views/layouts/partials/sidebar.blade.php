@@ -19,6 +19,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="javascript:void(0)" class="nav-link " style="color:white">
+                                <i class="nav-icon bi bi-people text-white"></i>
+                                <p>Commerciaux</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.business.index') }}" class="nav-link {{ isActiveRoute('admin.business.index') }} {{ isActiveRoute('admin.business.show') }}" style="color:white">
                                 <i class="nav-icon bi bi-house-gear text-white"></i>
                                 <p>Entreprise</p>

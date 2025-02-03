@@ -9,6 +9,13 @@
         vertical-align: middle;
     }
 
+    /* table.table.dataTable{
+        margin-bottom: 10px;
+    } */
+    .table-bordered {
+        border-color: #efefef;
+    }
+
     .dt-search {
         margin-bottom: 12px;
     }
@@ -69,13 +76,14 @@
     <div class="container-fluid">
         
         <!--begin::Row-->
-        <table id="Table" class="table table-bordered ">
+        <table id="Table" class="table table-bordered">
             <thead>
                 <tr>
                     <th>Nom</th>
                     <th>Secteur d'activité</th>
                     <th>Régistre de commerce</th>
                     <th>Nombre d'offre</th>
+                    <th>Statut</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -86,6 +94,7 @@
                     <td>{{ $item->activity }}</td>
                     <td>{{ $item->commercial_registrar }}</td>
                     <td>{{ $item->getTotalProduct() }}</td>
+                    <td>{!! $item->isBlocked() ? '<span class="badge text-bg-danger">Bloqué</span>' : '<span class="badge text-bg-success">Actif</span>' !!}</td>
                     <td>
                         <a href="{{ route('admin.business.show', ['item_id' => $item->id, 'slug' => $item->slug]) }}" class="btn btn-outline-primary btn-sm">
                             <i class="bi bi-eye"></i> Voir

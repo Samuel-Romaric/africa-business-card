@@ -39,7 +39,9 @@ Route::middleware('auth')->group(function () {
     // Sales Routes
     Route::prefix('/sales')->group(function () {
         Route::get('/all', [SaleController::class, 'showAllSales'])->name('sales.index');
-        Route::get('/{sale_id}/show', [SaleController::class, 'showSale'])->name('sales.show');
+        Route::get('/get-sale-by-ajax', [SaleController::class, 'getSaleByAjax'])->name('sale.get-by-ajax');
+        Route::post('/update', [SaleController::class, 'updateSale'])->name('sales.update');
+        Route::get('/delete/{item_id}/', [SaleController::class, 'deleteSale'])->name('sale.delete');
     });
 
 

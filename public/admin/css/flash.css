@@ -1,4 +1,4 @@
-.alert {
+.flashy {
     font-family: "Source Sans Pro", Arial, sans-serif;
     padding: 11px 30px;
     border-radius: 4px;
@@ -12,16 +12,16 @@
     opacity: 70%;
 }
 
-.alert-success {
+.flashy-success {
     background-color: #06691d;
     color: #fff;
 }
 
-.alert-danger {
+.flashy-danger {
     background: #d14130;
     color: #fff;
 }
 
-.flash-message {
+.flashy-message {
     margin-left: 8px;
 }

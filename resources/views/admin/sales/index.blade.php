@@ -67,13 +67,6 @@
     </div> <!-- end::Row -->
 </div>
 <div class="app-content" >
-    @if ($errors->any())
-            <div class="alert alert-danger bg-opacity-15">
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-            </div>
-        @endif
     <!--begin::Container-->
     <div class="container-fluid">
         <!--begin::Row-->
@@ -83,7 +76,8 @@
                     <tr>
                         <th>Nom du produit</th>
                         <th>Entreprises</th>
-                        <th>Manager</th>
+                        <th>Client</th>
+                        <th>Client</th>
                         <th>Quatité vendu</th>
                         <th>Prix unitaire</th>
                         <th>Actions</th>
@@ -92,11 +86,12 @@
                 <tbody>
                 @foreach($sales as $item)
                     <tr>
-                        <td>{{ $item->product->name }}</td>
-                        <td>{{ $item->business->name }}</td>
-                        <td>{{ $item->manager->name }}</td>
-                        <td>{{ $item->quantity }}</td>
-                        <td>{{ $item->amount_received }}</td>
+                        <td>{{ $item->offer->titre }}</td>
+                        <td>{{ $item->business->nom_commercial }}</td>
+                        <td>{{ $item->nom_client }}</td>
+                        <td>{{ $item->nom_client }}</td>
+                        <td>{{ $item->quantite }}</td>
+                        <td>{{ $item->montant_recu }}</td>
                         <td>
                             <a href="javascript:void(0)" onclick="openUpdateModal({{ $item->id }})"  class="btn btn-outline-success btn-sm">
                                 <i class="bi bi-pencil-square"></i> Modifier
@@ -128,6 +123,7 @@
 <script src="{{ asset('admin/js/sweetalert2@11.js') }}"></script>
 <script>
     let get_sale_route = "{{ route('admin.sale.get-by-ajax') }}";
+    let get_manager_saler_route = "{{ route('admin.sale.get-user-saler-by-ajax') }}";
 
     $(document).ready(function () {
         $('#Table').DataTable({
@@ -146,7 +142,6 @@
         
     function openUpdateModal(sale_id) {
         $('#updateSaleProductForm').trigger('reset');
-        // $('#sale_id').val(sale_id);
         console.log(sale_id);
         
         $.ajaxSetup({
@@ -162,10 +157,15 @@
                 
                 if (result.action == true) {
 
+                    $('#marchandName').val(result.data.nom_client)
+
                     $('#code').val(result.data.code);
-                    $('#quantity').val(result.data.quantity);
-                    $('#amount_received').val(result.data.amount_received);
+                    $('#customerName').val(result.data.nom_client);
+                    $('#quantity').val(result.data.quantite);
+                    $('#amount_received').val(result.data.montant_recu);
                     $('#sale_id').val(result.data.id);
+                    $('#saler_id').val(result.data.saler_id);
+                    $('#marchandName').val(result.data.marchandName)
 
                 } else {
                     // toastr.error(result.message);
@@ -211,7 +211,38 @@
     //     }
     // }
 
-    function get_item(url, item_id) {
+    // function get_item(url, item_id) {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     $.ajax({
+    //         type: "GET",
+    //         url: url+"?item_id="+item_id,
+    //         success: function(result) {
+    //             console.log(result);
+    //             if (result.action == true) {
+
+    //                 $('#titleU').val(result.data.title);
+    //                 $('#titleU').val(result.data.title);
+    //                 $('#iconU').val(result.data.icon);
+    //                 $('#descriptionU').val(result.data.description);
+
+    //             } else {
+    //                 toastr.error(result.message);
+    //             }
+    //         },
+    //         error: (e) => {
+    //             console.log(e);
+    //             console.log(e.responseJSON);
+    //         }
+    //     });
+    // }
+
+    $('#code').on('change', function () {
+        let codeSaler = $('#code').val();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -219,17 +250,30 @@
         });
         $.ajax({
             type: "GET",
-            url: url+"?item_id="+item_id,
+            url: get_manager_saler_route+"?codeSaler="+codeSaler,
             success: function(result) {
                 console.log(result);
+                
                 if (result.action == true) {
 
-                    $('#titleU').val(result.data.title);
-                    $('#iconU').val(result.data.icon);
-                    $('#descriptionU').val(result.data.description);
+                    $('#codeHelp').html(`
+                        <div class="text-success">
+                            <i class="bi bi-check2-all"></i> 
+                            ${result.message} 
+                        </div>`);
+                    $('#saler_id').val(result.data.saler_id);
+                    $('#marchandName').val(result.data.fullname);
 
                 } else {
-                    toastr.error(result.message);
+                    console.log('No user find...');
+                    $('#codeHelp').html(`
+                        <div class="text-danger">
+                            <i class="bi bi-exclamation-triangle"></i> 
+                            ${result.message}
+                        </div>
+                    `);
+                    $('#saler_id').val('');
+                    $('#marchandName').val('');
                 }
             },
             error: (e) => {
@@ -237,7 +281,7 @@
                 console.log(e.responseJSON);
             }
         });
-    }
+    });
 
 </script>
 @endpush

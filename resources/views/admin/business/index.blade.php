@@ -20,6 +20,15 @@
         margin-bottom: 12px;
     }
 
+    #Table_info {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* #Table {
+        border-color: #28a745;
+    } */
+
     .badge-status {
         padding: 5px 10px;
         border-radius: 12px;
@@ -76,8 +85,8 @@
     <div class="container-fluid">
         
         <!--begin::Row-->
-        <table id="Table" class="table table-bordered">
-            <thead>
+        <table id="Table" class="table table-striped table-hover">
+            <thead class="table-light">
                 <tr>
                     <th>Nom</th>
                     <th>Secteur d'activité</th>
@@ -87,13 +96,13 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-muted">
             @foreach($businesses as $item)
                 <tr>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->activity }}</td>
-                    <td>{{ $item->commercial_registrar }}</td>
-                    <td>{{ $item->getTotalProduct() }}</td>
+                    <td>{{ $item->nom_commercial }}</td>
+                    <td>{{ $item->getActivitySectorTitle() }}</td>
+                    <td>{{ $item->num_rccm }}</td>
+                    <td>{{ $item->getTotalOffer() }}</td>
                     <td>{!! $item->isBlocked() ? '<span class="badge text-bg-danger">Bloqué</span>' : '<span class="badge text-bg-success">Actif</span>' !!}</td>
                     <td>
                         <a href="{{ route('admin.business.show', ['item_id' => $item->id, 'slug' => $item->slug]) }}" class="btn btn-outline-primary btn-sm">

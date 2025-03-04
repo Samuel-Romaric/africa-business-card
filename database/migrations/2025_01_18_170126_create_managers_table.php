@@ -13,18 +13,12 @@ return new class extends Migration
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->id();
+            
+            $table->enum('type', ['senior', 'junior']);
+            $table->boolean('is_bloqued')->default(0);
 
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
-            $table->rememberToken();
-
-            $table->string('slug');
-            $table->text('description');
-            $table->string('location')->nullable();
-            $table->string('code');
-            $table->foreignId('business_id')->constrained()->onDelete('cascade');
+            $table->foreignId('business_id')->nullable()->constrained()->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 if (!function_exists('isActiveRoute')) {
@@ -26,5 +27,27 @@ if (!function_exists('flashy')) {
      */
     function flashy($type = '', $message = '') {
         session()->flash($type, $message);
+    }
+}
+
+if (!function_exists('getUserStatus')) {
+    
+    function getUserStatus(User $user) {
+        if ($user->isBlocked()) {
+            return 'Bloqué';
+        }
+
+        return 'Actif';
+    }
+}
+
+if (!function_exists('getUserStatusClass')) {
+    
+    function getUserStatusClass(User $user) {
+        if ($user->isBlocked()) {
+            return 'status-danger';
+        }
+
+        return 'status-success';
     }
 }

@@ -13,6 +13,17 @@
                         <div class="card-body">
                             @csrf
                             <input type="hidden" name="sale_id" id="sale_id">
+                            <input type="hidden" name="saler_id" id="saler_id">
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="customerName" class="form-label">Nom du client</label>
+                                        <input type="text" name="nom_client" required class="form-control" id="customerName">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -26,14 +37,23 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="quantity" class="form-label">Nombre de produit acheté</label>
-                                        <input type="number" name="quantity" min="1" required class="form-control" id="quantity">
+                                        <input type="number" name="quantite" min="1" required class="form-control" id="quantity">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="marchandName" class="form-label">Nom du marchand</label>
+                                        <input type="text" name="nom_marchand" disabled class="form-control" id="marchandName">
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Montant reçu</span>
-                                <input type="text" name="amount_received" id="amount_received" required class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" name="montant_recu" id="amount_received" required class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <span class="input-group-text">F CFA</span>
                             </div>
                         </div>

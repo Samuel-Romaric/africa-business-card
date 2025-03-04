@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Sale;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,8 +27,11 @@ class SaleController extends Controller
                 $data = [
                     'id' => $sale->id,
                     'code' => $sale->code,
-                    'quantity' => $sale->quantity,
-                    'amount_received' => $sale->amount_received,
+                    'nom_client' => $sale->nom_client,
+                    'quantite' => $sale->quantite,
+                    'montant_recu' => $sale->montant_recu,
+                    'saler_id' => $sale->manager_id,
+                    'marchandName' => $sale->getManagerFullName(),
                 ];
 
                 $result['action'] = true;
@@ -40,13 +44,52 @@ class SaleController extends Controller
         }
     }
 
+    
+    function getSalerByAjax(Request $request) {
+        
+        if ($request->ajax()) {
+
+            try {
+                
+                if (($request->codeSaler)) {
+                    $user = User::where('is_blocked', 0)->where('code', $request->codeSaler)->first();
+
+                    if (!is_null($user)) {
+                        $data = [
+                            'fullname' => $user->firstname.' '.$user->name,
+                            'saler_id' => $user->id,
+                        ];
+                        
+                        $result['message'] = 'Code validé';
+                        $result['action'] = true;
+                        $result['data'] = $data;
+
+                        return response()->json($result);
+                    }
+                    
+                    $result['action'] = false;
+                    $result['message'] = 'Code manager invalide';
+                    return response()->json($result);
+                }
+
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
+        }
+    }
+
+
     function updateSale(Request $request) {
 
+        // dd($request->all());
+
         $validator = Validator::make($request->all(),[
-            'sale_id' => 'required',
+            'nom_client' => 'required|string',
+            'sale_id' => 'required|exists:sales,id',
+            'saler_id' => 'required|exists:users,id',
             'code' => 'required|string',
-            'quantity' => 'required|numeric|min:1',
-            'amount_received' => 'required|numeric|min:1',
+            'quantite' => 'required|numeric|min:1',
+            'montant_recu' => 'required|numeric|min:1',
         ]);
         
         if ($validator->fails()) {
@@ -62,15 +105,32 @@ class SaleController extends Controller
             return redirect()->back();
         }
 
-        $sale->update([
-            'code' => $request->code,
-            'quantity' => $request->quantity,
-            'amount_received' => $request->amount_received,
-        ]);
+        if($sale->offer->price != $request->montant_recu) {
+            session()->flash('warning', 'Vous devez entrer le bon montant');
+            return redirect()->back();
+        }
 
-        session()->flash('success', 'Information mise à jour avec succès');
+        $user = User::where('is_blocked', 0)->where('code', $request->code)->where('id', $request->saler_id)->first();
+
+        if ($user->isManager()) {
+
+            $sale->update([
+                'code' => $request->code,
+                'montant_recu' => (int) $request->montant_recu,
+                'nom_client' => $request->nom_client,
+                'quantite' => (int) $request->quantite,
+                'montant_recu' => $request->montant_recu,
+                'manager_id' => $request->saler_id,
+            ]);
+
+            session()->flash('success', 'Information mise à jour avec succès');
+            return redirect()->back();
+        }
+
+        session()->flash('error', 'Vous devenz saisir le code d\'un manager');
         return redirect()->back();
     }
+
 
     function deleteSale($item_id) {
         if (!is_null($item_id)) {

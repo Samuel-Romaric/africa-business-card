@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('/admin/css/adminlte.css') }}">
-    <link rel="stylesheet" href="{{ asset('/admin/css/flash.css') }}">
+    <link rel="stylesheet" href="{{ asset('/admin/css/custome.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/admin/css/flashy.css') }}"> --}}
 
     @stack('styles') <!-- Inclure les styles spécifiques à une page -->
     <style>
@@ -113,7 +114,7 @@
 
             @yield('content') <!-- Section pour le contenu principal -->
 
-            @include('layouts.partials.message.flash')
+            @include('layouts.partials.flash-message')
             
         </main>
         <!--end::App Main-->
@@ -140,7 +141,7 @@
     </script>
     <script src="{{ asset('/admin/js/adminlte.js') }}"></script>
     <script src="{{  asset('/admin/js/jquery-3.7.1.min.js')}}"></script>
-    <script src="{{  asset('/admin/js/flash.js')}}"></script>
+    {{-- <script src="{{  asset('/admin/js/flashy.js')}}"></script> --}}
 
     @stack('scripts') {{-- Inclure les scripts spécifiques à une page --}}
 </body>

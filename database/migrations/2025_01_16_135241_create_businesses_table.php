@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nom_commercial');
             $table->string('slug');
-            $table->string('activity');
-            $table->string('commercial_registrar');
-            $table->string('number_of_offers');
+            $table->string('forme_juridique');
+            $table->string('num_rccm');
+            $table->string('capital')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_blocked')->default(0);
+            
             $table->timestamps();
         });
     }

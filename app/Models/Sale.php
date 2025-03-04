@@ -9,16 +9,19 @@ class Sale extends Model
     //
     protected $fillable = [
         'code',
-        'price',
-        'quantity',
-        'amount_received',
-        'product_id',
+        'montant_recu',
+        'prix',
+        'quantite',
+        'nom_client',
+        'nom_marchand',
+        'offer_id',
         'business_id',
         'manager_id',
+        'admin_id',
     ];
 
-    function product() {
-        return $this->belongsTo(Product::class);
+    function offer() {
+        return $this->belongsTo(Offer::class);
     }
 
     function business() {
@@ -26,6 +29,20 @@ class Sale extends Model
     }
 
     function manager() {
-        return $this->belongsTo(Manager::class);
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    function getManagerFullName() {
+        if ($this->manager()->exists()) {
+            $fullName = $this->manager->name.' '.$this->manager->firstname;
+
+            return $fullName;
+        }
+
+        return '-';
+    }
+
+    function admin() {
+        return $this->belongsTo(User::class, 'admin_id');
     }
 }

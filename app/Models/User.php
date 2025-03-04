@@ -21,8 +21,11 @@ class User extends Authenticatable implements HasMedia
      */
     protected $fillable = [
         'name',
+        'firstname',
         'email',
         'password',
+        'is_blocked',
+        'is_global_admin',
     ];
 
     /**
@@ -69,4 +72,83 @@ class User extends Authenticatable implements HasMedia
     //     ->fit(Fit::Contain, 300, 300)
     //     ->nonQueued();
     // }
+
+    function offers() {
+        return $this->hasMany(Offer::class, 'user_id');
+    }
+
+    function manager()  {
+        return $this->belongsTo(Manager::class);
+    }
+
+    function business() {
+        return $this->belongsTo(Business::class);
+    }
+
+    function commercial() {
+        return $this->belongsTo(Commercial::class);
+    }
+
+    function adminSaler() {
+        return $this->hasMany(Sale::class, 'admin_id');
+    }
+
+    function activitySector() {
+        return $this->belongsTo(ActivitySector::class);
+    }
+
+    function getAtivitySector() {
+        $acti = $this->activitySector()->first();
+        return $acti;
+    }
+
+    function isBlocked() {
+        if ($this->is_blocked == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    function getStatus() {
+        if ($this->isBlocked()) {
+            return 'Bloqué';
+        }
+
+        return 'Actif';
+    }
+
+    function getStatusClass() {
+        if ($this->isBlocked()) {
+            return 'status-danger';
+        }
+
+        return 'status-success';
+    }
+
+    function isManager() {
+        if ($this->manager()->exists()) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    function getFullName() {
+        $fullname = $this->name.' '.$this->firstname;
+        return $fullname;
+    }
+
+    function isGlobalAdmin() {
+        if ($this->is_global_admin == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    function getPrivilege() {
+        if ($this->isGlobalAdmin()) {
+            return 'Super Admin';
+        }
+        return 'Admin';
+    }
 }

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Business extends Model
+class Business extends Model implements HasMedia
 {
+    use InteractsWithMedia;
     //
     protected $fillable = [
         'name',
@@ -23,29 +26,53 @@ class Business extends Model
         return false;
     }
 
-    function hasProducts() {
-        return $this->products()->exists();
-    }
+    // function hasOffers() {
+    //     return $this->offers()->exists();
+    // }
 
-    function getTotalProduct() {
-        $all = $this->products()->get();
+    function getTotalOffer() {
+        $offers = $this->offers()->get();
         
-        return count($all);
+        return count($offers);
     }
 
-    function getProducts() {
-        return $this->products()->get();
-    }
-
-    function managers() {
-        return $this->hasMany(Manager::class);
-    }
-
-    function products() {
-        return $this->hasMany(Product::class);
+    function offers() {
+        return $this->hasMany(Offer::class);
     }
 
     function sales() {
         return $this->hasMany(Sale::class);
+    }
+
+    function user() {
+        return $this->hasOne(User::class);
+    }
+
+    function getActivitySector() {
+        $user = $this->user;
+        $activitySector = $user->activitySector()->first();
+        
+        return $activitySector;
+    }
+
+    function getActivitySectorTitle() {
+        $activitySector = $this->getActivitySector();
+
+        return $activitySector->titre;
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('businessLogo')
+            ->singleFile();
+    }
+
+    public function getBusinessLogoFullUrl()
+    {
+        if (is_null($this->getFirstMedia('businessLogo'))) {
+            return asset('/admin/assets/img/logo-business.png');
+        }
+
+        return $this->getFirstMedia('businessLogo')->getFullUrl();
     }
 }

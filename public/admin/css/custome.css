@@ -1,0 +1,107 @@
+/********************************************************
+*               Customize alert message                 *
+*********************************************************/
+.custom-alert {
+    border-radius: 10px;
+    padding: 15px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 500;
+    width: 60%;
+}
+
+.alert-success {
+    background-color: #E6F4EA;
+    border-color: #A3D9A5;
+    color: #237A3D;
+}
+
+.alert-primary {
+    background-color: #E8F0FE;
+    border-color: #A7C7F7;
+    color: #1756A9;
+}
+
+.alert-warning {
+    background-color: #FEF7E0;
+    border-color: #F0C75E;
+    color: #8F6500;
+}
+
+.alert-danger {
+    background-color: #FEECEC;
+    border-color: #EFA8A8;
+    color: #B00020;
+}
+
+.btn-close {
+    opacity: 0.7;
+    /* min-height: 5px; */
+}
+.btn-close:hover {
+    opacity: 1;
+}
+
+.icon-alert-danger {
+    height: 20px;
+    width: 100%;
+    /* background-color:#ffffff9d; */
+    padding: 2px 5px 2px 5px;
+    border-radius: 50px;
+    color: #B00020;
+}
+
+.icon-alert-info {
+    height: 20px;
+    width: 100%;
+    /* background-color:#ffffff9d; */
+    padding: 2px 5px 2px 5px;
+    border-radius: 50px;
+    color: #1756A9;
+}
+
+.alert-icon {
+    display: flex;               /* Active Flexbox */
+    align-items: center;         /* Centre verticalement */
+    justify-content: center;     /* Centre horizontalement */
+    width: 45px;                 /* Largeur du conteneur */
+    height: 45px;                /* Hauteur du conteneur */
+    border-radius: 50%;          /* Bordures arrondies */
+    /* background-color: #A3D9A5; Fond clair */
+    /* background-color: #E6F4EA; Fond clair */
+}
+
+.alert-icon-success {
+    background-color: #A3D9A5; /* Fond clair */
+    /* color: #237A3D; */
+}
+
+.alert-icon-primary {
+    background-color: #A7C7F7;
+}
+
+.alert-icon-warning {
+    background-color: #F0C75E;
+}
+
+.alert-icon-danger {
+    background-color: #EFA8A8;
+}
+
+.alert-icon span {
+    font-size: 20px; /* Ajuste la taille de l'emoji */
+}
+
+.alert-fixed-center {
+    position: fixed;
+    top: 20%;
+    width: 50%;
+    left: 35%;
+    z-index: 9999;
+    /* opacity: 98%; */
+}
+
+.alert-title {
+    font-size: 18px;
+    font-weight: bold;
+}

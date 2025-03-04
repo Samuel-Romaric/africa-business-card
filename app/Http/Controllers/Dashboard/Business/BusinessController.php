@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Dashboard\Business;
 
 use App\Http\Controllers\Controller;
 use App\Models\Business;
+use App\Models\Offer;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class BusinessController extends Controller
@@ -24,12 +27,13 @@ class BusinessController extends Controller
         $business = Business::where('id', $item_id)->where('slug', $slug)->first();
 
         if (is_null($business)) {
+            session()->flash('error', 'Une erreur s\'est produite');
             return redirect()->back();
         }
 
-        $products = $business->products()->paginate(6);
+        $offers = $business->offers()->paginate(12);
 
-        return view('admin.business.show', compact('business', 'products'));
+        return view('admin.business.show', compact('business', 'offers'));
     }
 
     function blockedBusiness($item_id, $slug) {
@@ -53,13 +57,15 @@ class BusinessController extends Controller
         return redirect()->back();
     }
 
-    function saleProduct(Request $request) {
+    function saleOffer(Request $request) {
 
         $validator = Validator::make($request->all(),[
-            'product_id' => 'required',
+            'nom_client' => 'required|string',
+            'offer_id' => 'required|exists:offers,id',
+            'saler_id' => 'required|exists:users,id',
             'code' => 'required|string',
-            'quantity' => 'required|numeric|min:1',
-            'amount_received' => 'required|numeric|min:1',
+            'quantite' => 'required|numeric|min:1',
+            'montant_recu' => 'required|numeric|min:100',
         ]);
         
         if ($validator->fails()) {
@@ -68,25 +74,65 @@ class BusinessController extends Controller
             return redirect()->back();
         }
 
-        $product = Product::where('id', $request->product_id)->first();
+        $offer = Offer::where('id', $request->offer_id)->first();
 
-        if ($product->price != $request->amount_received) {
-            session()->flash('error', 'Vous devez entrer le bon montant');
+        if ($offer->price != $request->montant_recu) {
+            session()->flash('warning', 'Vous devez entrer le bon montant');
             return redirect()->back();
         }
-        
-        Sale::create([
-            'code' => $request->code,
-            'amount_received' => $request->amount_received,
-            'product_id' => $product->id,
-            'quantity' => (int) $request->quantity,
-            'price' => $product->price,
-            'business_id' => $product->business->id,
-            'manager_id' => $product->manager->id,
-        ]);
 
-        // Metre à jour la quantité de produit restant
-        session()->flash('success', 'Vente effectué avec succès');
+        $user = User::where('code', $request->code)->where('id', $request->saler_id)->first();
+        
+        if ($user->isManager()) {
+            Sale::create([
+                'code' => $request->code,
+                'montant_recu' => (int) $request->montant_recu,
+                'quantite' => (int) $request->quantite,
+                'nom_client' => $request->nom_client,
+                'prix' => (int) $offer->price,
+                'offer_id' => $offer->id,
+                'business_id' => $offer->business->id,
+                'manager_id' => $request->saler_id,
+                'admin_id' => Auth::user()->id,
+            ]);
+
+            session()->flash('success', 'Vente effectué avec succès');
+            return redirect()->back();
+        }
+
+        session()->flash('danger', "Vous devez saisir le code d'un manager");
         return redirect()->back();
+    }
+
+    function getSalerByAjax(Request $request) {
+        
+        if ($request->ajax()) {
+
+            try {
+                if (($request->codeSaler)) {
+                    $user = User::where('is_blocked', 0)->where('code', $request->codeSaler)->first();
+
+                    if (!is_null($user)) {
+                        $data = [
+                            'fullname' => $user->firstname.' '.$user->name,
+                            'saler_id' => $user->id,
+                        ];
+                        
+                        $result['message'] = 'Code validé';
+                        $result['action'] = true;
+                        $result['data'] = $data;
+
+                        return response()->json($result);
+                    }
+                    
+                    $result['action'] = false;
+                    $result['message'] = 'Code manager invalide';
+                    return response()->json($result);
+                }
+
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
+        }
     }
 }

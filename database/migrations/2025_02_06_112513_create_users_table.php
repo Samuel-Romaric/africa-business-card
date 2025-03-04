@@ -14,9 +14,33 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('firstname');
+            $table->string('slug');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            $table->enum('role', ['admin', 'manager', 'commercial', 'business'])->nullable();
+            $table->boolean('is_global_admin')->default(0);
+            $table->string('num_cni')->nullable();
+            $table->date('date_naissance')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('code')->unique()->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('diplome')->nullable();
+            $table->string('pays')->nullable();
+            $table->string('departement')->nullable();
+            $table->string('ville')->nullable();
+            $table->string('commune')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('is_blocked')->default(0); // user status
+
+            $table->foreignId('manager_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('commercial_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('business_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('activity_sector_id')->nullable()->constrained()->onDelete('cascade');
+
             $table->rememberToken();
             $table->timestamps();
         });

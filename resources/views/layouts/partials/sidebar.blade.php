@@ -1,7 +1,9 @@
 <aside class="app-sidebar " data-bs-theme="dark" style="background-color:#010140;color:white">
     <div class="sidebar-wrapper">
-        <img src="{{ asset('/admin/assets/logo.png') }}" style="width: auto; height: 8em; display: block; margin: auto" alt="Africa business card Logo"
-                class="brand-image  shadow">
+        <a href="{{ route('admin.dashboard') }}">
+            <img src="{{ asset('/admin/assets/logo.png') }}" style="width: auto; height: 8em; display: block; margin: auto" alt="Africa business card Logo"
+                class="brand-image shadow">
+        </a>
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                             data-accordion="false">
@@ -11,15 +13,14 @@
                         <i class="nav-icon bi bi-speedometer2 text-white"></i>
                         <p>Tableau de bord</p>
                     </a>
-                        </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.manager.index') }}" class="nav-link {{ isActiveRoute('admin.manager.index') }}" style="color:white">
+                            <a href="{{ route('admin.manager.index') }}" class="nav-link {{ isActiveRoute('admin.manager.index') }}{{ isActiveRoute('admin.manager.show') }}" style="color:white">
                                 <i class="nav-icon bi bi-kanban text-white"></i>
                                 <p>Managers</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link " style="color:white">
+                            <a href="{{ route('admin.commerciaux.index') }}" class="nav-link {{ isActiveRoute('admin.commerciaux.index') }}{{ isActiveRoute('admin.commercial.show') }}" style="color:white">
                                 <i class="nav-icon bi bi-people text-white"></i>
                                 <p>Commerciaux</p>
                             </a>
@@ -37,21 +38,29 @@
                             </a>
                         </li> 
                         <li class="nav-item">
-                            <a href="#" class="nav-link" style="color:white">
+                            <a href="{{ route('admin.report.index') }}" class="nav-link {{ isActiveRoute('admin.report.index') }}" style="color:white">
                                 <i class="nav-icon bi bi-journal-text text-white"></i>
                                 <p>Rapports</p>
                             </a>
                         </li>
-                        <!-- Paramètres -->
+                        @if (\Auth()->user()->isGlobalAdmin())
+                        <!-- Utilisateurs -->
                         <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link {{ isActiveRoute('admin.users.index') }}" style="color:white">
+                                <i class="nav-icon bi bi-person-gear text-white"></i>
+                                <p>Utilisateurs</p>
+                            </a>
+                        </li>
+                        @endif
+                       
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link" style="color:white">
                             <i class="nav-icon bi bi-gear text-white"></i>
-                        <p>Paramètres</p>
+                        <p>Paramètres</p> --}}
                     </a>
                 </li>
             </ul>
         </nav>
     </div>
-    <!--end::Sidebar Wrapper-->
     <!--end::Sidebar Wrapper-->
 </aside>

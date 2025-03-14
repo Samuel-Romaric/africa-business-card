@@ -68,6 +68,15 @@ Route::middleware('auth')->group(function () {
     Route::middleware('isGlobalAdmin')->prefix('/users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/{user_id}/blocked', [UserController::class, 'blockedUser'])->name('user.blocked');
+        Route::get('/{user_id}/{slug}/show', [UserController::class, 'showUser'])->name('user.show');
+        Route::get('/{user_id}/{slug}/edit', [UserController::class, 'editUser'])->name('user.edit');
+        Route::post('/personal-info/user/update', [UserController::class, 'updatePersonalUserInfo'])->name('user.update-personal-info');
+        
+        Route::post('/reset/user/password', [UserController::class, 'resetUserPassword'])->name('user.reset-password');
+        Route::post('/add/user/permission', [UserController::class, 'addPermissionUser'])->name('user.add-permission');
+
+        Route::get('/user/add/form', [UserController::class, 'showAddFormUser'])->name('user.add-form');
+        Route::post('/user/add/', [UserController::class, 'addUser'])->name('user.add-user');
     });
     
 });

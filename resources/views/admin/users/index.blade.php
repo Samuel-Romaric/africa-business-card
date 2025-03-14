@@ -98,10 +98,12 @@
                     </div> --}}
                 </div>
                 <ol class="breadcrumb float-sm-center" >
-                    {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        fnekerjfel
-                    </li> --}}
+                    <div class="mb-3 mt-3 row">
+                        {{-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label> --}}
+                        <div class="col-sm-10" style="position:absolute; right: -659px; top: 65px;">
+                            <a href="{{ route('admin.user.add-form') }}" class="btn btn-primary"><i class="bi bi-plus"></i> Ajouter utilisateur</a>
+                        </div>
+                    </div>
                     {{-- <form action="" class="" style="border: 1px solid blue">
                         <div class="row" style="border: 1px solid red;">
                             <div class="col-12 d-flex">
@@ -206,16 +208,16 @@
             $i = 1
         @endphp
 
-            <table id="Table" class="table table-borderless">
-                <thead>
+            <table id="Table" class="table table-striped table-hover">
+                <thead class="table-light">
                     <tr>
                         <th>#</th>
                         <th>Profile</th>
                         <th>Téléphone</th>
-                        <th>Permission</th>
+                        <th>Privilèges</th>
+                        <th>Statut</th>
                         <th>Dernière modif</th>
                         <th>Date d'ajoute </th>
-                        <th>Statut</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -224,11 +226,11 @@
                     <tr>
                         <td>{{ $i++ }}</td>
                         <td>
-                            <div class="d-flex">
+                            <div class="d-flex" style="justify-content: center;">
                                 <div class="flex-shrink-0">
-                                  <img src="{{ $item->getAvatarFullUrl() }}" alt="User Avatar" class="img-size-50 rounded-circle me-3 avatar">
+                                  <img src="{{ $item->getAvatarFullUrl() }}" alt="User Avatar" class="img-size-50 rounded-circle me-3 avatar" style="height: 50px; width: 50px;">
                                 </div>
-                                <div class="flex-grow-1">
+                                <div class="flex-grow-1" style="margin-top: 8px">
                                     <h3 class="dropdown-item-title">
                                         {{ $item->getFullName() }}
                                     </h3>
@@ -239,30 +241,27 @@
                             </div>
                         </td>
                         <td>{{ $item->telephone }}</td>
-                        <td>{{ $item->getPrivilege() }} </td>
-                        <td>{{ $item->updated_at }} </span></td>
-                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $item->getPrivilege() }}</td>
                         <td>
                             <span class="{{ getUserStatusClass($item) }}"><i class="bi bi-record-fill" style="font-size: 10px"></i> {{ getUserStatus($item) }}</span>
                         </td>
+                        <td>{{ $item->updated_at->format('d M Y') }}</td>
+                        <td>{{ $item->created_at->format('d M Y') }}</td>
                         <td>
                             <div class="btn-group">
                                 <div class="btn-dots-action" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </div>
                                 <ul class="dropdown-menu">
-                                    {{-- <li><a class="dropdown-item" href="javascript:void(0)">Action</a></li>
+                                    <li><a class="dropdown-item" href="javascript:void(0)">Action</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-primary" href="{{ route('admin.commercial.show', $item->id) }}"><i class="bi bi-eye"></i> Detail</a></li>
-                                    <li><a class="dropdown-item text-primary" href="{{ route('admin.commercial.show', $item->id) }}"><i class="bi bi-pencil-square"></i> Editer</a></li>      
-                                    <li><a class="dropdown-item text-primary" href="{{ route('admin.commercial.show', $item->id) }}"><i class="bi bi-pencil-square"></i> Reinitialiser</a></li>      
+                                    <li><a class="dropdown-item text-primary" href="{{ route('admin.user.show', ['user_id' => $item->id, 'slug' => $item->slug]) }}"><i class="bi bi-person"></i> Voir Profile</a></li>
+                                    {{-- <li><a class="dropdown-item text-warning" href="{{ route('admin.user.show', ['user_id' => $item->id, 'slug' => $item->slug]) }}"><i class="bi bi-arrow-repeat"></i> Reinitialiser</a></li>       --}}
                                     </li>
                                     <li><a class="dropdown-item {{ $item->isBlocked() ? 'text-success' : 'text-danger' }}" onclick="return confirm('Voulez-vous bloquer cet utilisateur ?')" href="{{ route('admin.user.blocked', $item->id) }}">
                                             {!! $item->isBlocked() ? '<i class="bi bi-unlock"></i> Débloquer' : '<i class="bi bi-lock"></i> Bloquer'!!} 
                                         </a>
                                     </li>
-                                    <li class="bg-danger"><a class="dropdown-item text-white" href="{{ route('admin.commercial.show', $item->id) }}"><i class="bi bi-trash"></i> Supprimer</a></li>      
-                                    </li> --}}
                                 </ul>
                             </div>
                         </td>

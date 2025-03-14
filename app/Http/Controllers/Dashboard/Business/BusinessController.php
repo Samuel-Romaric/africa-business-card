@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard\Business;
 use App\Http\Controllers\Controller;
 use App\Models\Business;
 use App\Models\Offer;
-use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;

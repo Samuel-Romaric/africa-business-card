@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+// use Spatie\Image\Enums\Fit;
+// use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -22,10 +24,29 @@ class User extends Authenticatable implements HasMedia
     protected $fillable = [
         'name',
         'firstname',
+        'slug',
         'email',
+        'role',
         'password',
         'is_blocked',
         'is_global_admin',
+        'telephone',
+        'num_cni',
+        'whatsapp',
+        'date_naissance',
+        'age',
+        'code',
+        'diplome',
+        'pays',
+        'departement',
+        'ville',
+        'commune',
+        'description',
+        'is_blocked',
+        'manager_id',
+        'commercial_id',
+        'business_id',
+        'activity_sector_id',
     ];
 
     /**
@@ -64,13 +85,15 @@ class User extends Authenticatable implements HasMedia
         }
 
         return $this->getFirstMedia('avatar')->getFullUrl();
+        // return $this->getFirstMediaUrl('avatar', 'preview');
     }
 
     // public function registerMediaConversions(?Media $media = null): void
     // {
-    // $this->addMediaConversion('preview')
-    //     ->fit(Fit::Contain, 300, 300)
-    //     ->nonQueued();
+    //     $this->addMediaConversion('preview')
+    //         ->fit(Fit::Contain, 400, 400)
+    //         ->sharpen(10)
+    //         ->nonQueued();
     // }
 
     function offers() {

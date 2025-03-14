@@ -93,28 +93,28 @@
     <div class="container-fluid">
         <!--begin::Row-->
 
-        <div class="card mb-3">
+        {{-- <div class="card mb-3">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="banner">
                             <div class="logo">
-                                <img class="logo" src="{{-- !is_null($sales) ? $sales?->first()->business->getBusinessLogoFullUrl() : 'N/A' --}}" alt="">
-                                {{-- <img class="logo" src="{{ $sales?->first()->business->getBusinessLogoFullUrl() ?? 'N/A' }}" alt=""> --}}
+                                <img class="logo" src="!is_null($sales) ? $sales?->first()->business->getBusinessLogoFullUrl() : 'N/A'" alt="">
+                                <img class="logo" src="{{ $sales?->first()->business->getBusinessLogoFullUrl() ?? 'N/A' }}" alt="">
                             </div>
                             <div class="content-slide">
-                                {{-- <div class="subtitle">{{ $sales->business->nom_commercial }}</div> --}}
-                                {{-- <div class="title">{{ \Str::limit($sales->business->description, 60) }} </div> --}}
+                                <div class="subtitle">{{ $sales->business->nom_commercial }}</div>
+                                <div class="title">{{ \Str::limit($sales->business->description, 60) }} </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        Entreprise : {{-- $sales->first()->business->nom_commercial ?? 'N/A' --}} <br>
-                        Manager    : {{-- $sales->first()->manager->name ?? 'N/A' --}}
+                        Entreprise : $sales->first()->business->nom_commercial ?? 'N/A' <br>
+                        Manager    : $sales->first()->manager->name ?? 'N/A'
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         {{-- {{ dd($sales) }} --}}
 

@@ -116,6 +116,14 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Sale::class, 'admin_id');
     }
 
+    function createOffer() {
+        return $this->hasMany(Offer::class, 'created_by');
+    }
+
+    function validateOffer() {
+        return $this->hasMany(Offer::class, 'validated_by');
+    }
+
     function activitySector() {
         return $this->belongsTo(ActivitySector::class);
     }

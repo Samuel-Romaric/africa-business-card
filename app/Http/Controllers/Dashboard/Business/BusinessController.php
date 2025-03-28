@@ -21,19 +21,19 @@ class BusinessController extends Controller
         return view('admin.business.index', compact('businesses'));
     }
 
-    function showBusiness($item_id, $slug) {
+    // function showBusiness($item_id, $slug) {
 
-        $business = Business::where('id', $item_id)->where('slug', $slug)->first();
+    //     $business = Business::where('id', $item_id)->where('slug', $slug)->first();
 
-        if (is_null($business)) {
-            session()->flash('error', 'Une erreur s\'est produite');
-            return redirect()->back();
-        }
+    //     if (is_null($business)) {
+    //         session()->flash('error', 'Une erreur s\'est produite');
+    //         return redirect()->back();
+    //     }
 
-        $offers = $business->offers()->paginate(12);
+    //     $offers = $business->offers()->paginate(12);
 
-        return view('admin.business.show', compact('business', 'offers'));
-    }
+    //     return view('admin.business.show', compact('business', 'offers'));
+    // }
 
     function blockedBusiness($item_id, $slug) {
 
@@ -60,11 +60,14 @@ class BusinessController extends Controller
 
         $validator = Validator::make($request->all(),[
             'nom_client' => 'required|string',
+            'prenom_client' => 'required|string',
+            'telephone_client' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
             'offer_id' => 'required|exists:offers,id',
             'saler_id' => 'required|exists:users,id',
             'code' => 'required|string',
-            'quantite' => 'required|numeric|min:1',
+            'quantite' => 'numeric|min:1',
             'montant_recu' => 'required|numeric|min:100',
+            'total' => 'required|numeric|min:1',
         ]);
         
         if ($validator->fails()) {
@@ -75,7 +78,7 @@ class BusinessController extends Controller
 
         $offer = Offer::where('id', $request->offer_id)->first();
 
-        if ($offer->price != $request->montant_recu) {
+        if ($offer->price > $request->montant_recu) {
             session()->flash('warning', 'Vous devez entrer le bon montant');
             return redirect()->back();
         }
@@ -86,9 +89,12 @@ class BusinessController extends Controller
             Sale::create([
                 'code' => $request->code,
                 'montant_recu' => (int) $request->montant_recu,
-                'quantite' => (int) $request->quantite,
                 'nom_client' => $request->nom_client,
+                'prenom_client' => $request->prenom_client,
+                'telephone_client' => $request->telephone_client,
+                'quantite' => (int) $request->quantite,
                 'prix' => (int) $offer->price,
+                'total' => (int) $offer->type === 'service' ? $offer->price : $request->total,
                 'offer_id' => $offer->id,
                 'business_id' => $offer->business->id,
                 'manager_id' => $request->saler_id,

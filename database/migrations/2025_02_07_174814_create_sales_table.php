@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('code');
             $table->string('montant_recu');
             $table->string('prix');
-            $table->string('quantite');
+            $table->string('quantite')->nullable();
             $table->string('nom_client');
+            $table->string('prenom_client');
+            $table->string('telephone_client');
+            $table->string('total');
             
             $table->foreignId('offer_id')->constrained()->onDelete('cascade');
             $table->foreignId('business_id')->nullable()->constrained()->onDelete('cascade');

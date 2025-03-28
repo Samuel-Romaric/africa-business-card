@@ -19,10 +19,16 @@ return new class extends Migration
             $table->enum('type', ['produit', 'service']);
             $table->integer('quantite')->nullable();
             $table->string('price');
+            // $table->enum('status', ['valide', 'en_attente', 'retirer']);
             $table->text('description')->nullable();
+
+            $table->boolean('validated')->default(0);
+            $table->date('validated_at')->nullable();
+            $table->foreignId('validated_by')->nullable()->constrained()->on('users')->onDelete('cascade');
 
             $table->foreignId('business_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained()->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

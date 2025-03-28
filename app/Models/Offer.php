@@ -20,6 +20,10 @@ class Offer extends Model implements HasMedia
         'description',
         'business_id',
         'user_id',
+        'validated',
+        'validated_at',
+        'validated_by',
+        'created_by',
     ];
 
     function user() {
@@ -32,6 +36,31 @@ class Offer extends Model implements HasMedia
 
     function sales() {
         return $this->hasMany(Sale::class);
+    }
+
+    function createBy() {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    function validateBy() {
+        return $this->belongsTo(User::class, 'validated_by');
+    }
+
+    function isValidated() {
+        
+        if ($this->validated == 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getStatus() {
+        if ($this->validated == 1) {
+            return 'validé';
+        }
+
+        return 'en attente';
     }
 
     public function registerMediaCollections(): void

@@ -101,7 +101,7 @@
                     <div class="mb-3 mt-3 row">
                         {{-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label> --}}
                         <div class="col-sm-10" style="position:absolute; right: -659px; top: 65px;">
-                            <a href="{{ route('admin.user.add-form') }}" class="btn btn-primary"><i class="bi bi-plus"></i> Ajouter utilisateur</a>
+                            <a href="{{ route('admin.user.add-form') }}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Ajouter utilisateur</a>
                         </div>
                     </div>
                     {{-- <form action="" class="" style="border: 1px solid blue">
@@ -284,7 +284,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/r-3.0.3/datatables.min.js"></script>
-<script src="{{ asset('admin/js/sweetalert2@11.js') }}"></script>
+{{-- <script src="{{ asset('admin/js/sweetalert2@11.js') }}"></script> --}}
 <script>
     // let get_sale_route = "{{-- route('admin.sale.get-by-ajax') --}}";
 

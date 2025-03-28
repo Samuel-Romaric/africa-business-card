@@ -26,7 +26,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.business.index') }}" class="nav-link {{ isActiveRoute('admin.business.index') }} {{ isActiveRoute('admin.business.show') }}" style="color:white">
+                            <a href="{{ route('admin.business.index') }}" class="nav-link {{ isActiveRoute('admin.business.index') }} {{ isActiveRoute('admin.business.offers.show') }}" style="color:white">
                                 <i class="nav-icon bi bi-house-gear text-white"></i>
                                 <p>Entreprises</p>
                             </a>
@@ -37,6 +37,12 @@
                                 <p>Ventes</p>
                             </a>
                         </li> 
+                        <li class="nav-item">
+                            <a href="{{ route('admin.subscription.index') }}" class="nav-link {{ isActiveRoute('admin.subscription.index') }}" style="color:white">
+                                <i class="nav-icon bi bi-card-checklist text-white"></i>
+                                <p>Souscription</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.report.index') }}" class="nav-link {{ isActiveRoute('admin.report.index') }}" style="color:white">
                                 <i class="nav-icon bi bi-journal-text text-white"></i>

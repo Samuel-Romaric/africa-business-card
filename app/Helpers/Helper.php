@@ -51,3 +51,26 @@ if (!function_exists('getUserStatusClass')) {
         return 'status-success';
     }
 }
+
+if (!function_exists('formatNumber')) {
+    function formatNumber($number = null) {
+        if ($number >= 1 && $number < 10) {
+            return '0' . $number; // Ajoute un 0 devant les chiffres de 0 à 9
+        } elseif ($number < 1) {
+            return '--';
+        } elseif ($number >= 1000000) {
+            return number_format($number / 1000000, 1) . ' M'; // Convertit en Millions
+        } elseif ($number >= 1000) {
+            return number_format($number / 1000, 1) . ' K'; // Convertit en Milliers
+        } else {
+            return $number; // Affiche le nombre tel quel
+        }
+    }
+}
+
+if (!function_exists('formatPrice')) {
+    function formatPrice($price = null, $currency = 'F CFA') {
+        
+        return number_format($price, 0, ',', '.') . ' ' . $currency;
+    }
+}

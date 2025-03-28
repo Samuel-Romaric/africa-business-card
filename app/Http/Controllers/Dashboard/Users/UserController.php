@@ -137,7 +137,7 @@ class UserController extends Controller
         Mail::to($user->email)->send(new UserCredentialsMail($user, $email, $password));
 
         session()->flash('success', 'Nouveau mot de passe '. $request->new_password .' ajouté avec succès !');
-        return redirect()->back(); // kS4A6#eb2ovD
+        return redirect()->back();
     }
 
     function addPermissionUser(Request $request) {
@@ -193,7 +193,7 @@ class UserController extends Controller
         }
 
         $email = $request->email;
-        $password = Str::random(12);
+        $password = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"), 0, 12);
         $slug = $request->name.'-'.$request->firstname;
 
         $user = User::create([
@@ -213,7 +213,7 @@ class UserController extends Controller
                 ->toMediaCollection('avatar');
         }
 
-        Mail::to($user->email)->send(new UserCredentialsMail($user, $user->email, $password));
+        Mail::to($user->email)->send(new UserCredentialsMail($user, $email, $password));
 
         session()->flash('success', 'Nouvel administrateur ajouté avec succès');
         return redirect()->route('admin.users.index');

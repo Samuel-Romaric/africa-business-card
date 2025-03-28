@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Dashboard\Business\BusinessController;
+use App\Http\Controllers\Dashboard\Business\Offer\OfferControler;
 use App\Http\Controllers\Dashboard\Commerciaux\CommerciauxController;
 use App\Http\Controllers\Dashboard\GeneralManagerController;
 use App\Http\Controllers\Dashboard\Manager\ManagerController;
 use App\Http\Controllers\Dashboard\Report\ReportController;
 use App\Http\Controllers\Dashboard\Sale\SaleController;
+use App\Http\Controllers\Dashboard\Subscription\SubscriptionController;
 use App\Http\Controllers\Dashboard\Users\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +45,19 @@ Route::middleware('auth')->group(function () {
     // Business Routes
     Route::prefix('/business')->group(function () {
         Route::get('/', [BusinessController::class, 'showBusinessList'])->name('business.index');
-        Route::get('/show/{item_id}/{slug}/', [BusinessController::class, 'showBusiness'])->name('business.show');
+
+        // Offers (services or products) Routes 
+        Route::prefix('/{item_id}/offers')->group(function () {
+            Route::get('/{slug}', [OfferControler::class, 'showOffers'])->name('business.offers.show');
+            Route::get('/{slug}/create', [OfferControler::class, 'createOffer'])->name('business.offer.create');
+            Route::post('/{slug}/add', [OfferControler::class, 'addOffer'])->name('business.offer.add');
+            Route::get('/{slug}/{offer_id}/edit', [OfferControler::class, 'editOffer'])->name('business.offer.edit');
+            Route::post('/{slug}/update', [OfferControler::class, 'updateOffer'])->name('business.offer.update');
+            Route::get('/{slug}/{offer_id}/validated', [OfferControler::class, 'validatedOffer'])->name('business.offer.validated');
+            Route::get('/{slug}/{offer_id}/delete', [OfferControler::class, 'deleteOffer'])->name('business.offer.delete');
+        });
+
+        // Route::get('/{item_id}/offers/{slug}/', [BusinessController::class, 'showBusiness'])->name('business.offers.show');
         Route::get('/blocked/{item_id}/{slug}/', [BusinessController::class, 'blockedBusiness'])->name('business.blocked');
         Route::post('/sale/offer/', [BusinessController::class, 'saleOffer'])->name('business.sale.offer');
         Route::get('/get-saler-by-ajax', [BusinessController::class, 'getSalerByAjax'])->name('business.get-saler-by-ajax');
@@ -58,7 +72,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{item_id}/', [SaleController::class, 'deleteSale'])->name('sale.delete');
     });
 
-    // Report Routes5
+    // Subscription Routes
+    Route::prefix('/subscription')->group(function () {
+        Route::get('/', [SubscriptionController::class, 'index'])->name('subscription.index');
+    });
+
+    // Report Routes
     Route::prefix('/report')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('report.index');
         Route::post('/show', [ReportController::class, 'showReport'])->name('report.show');

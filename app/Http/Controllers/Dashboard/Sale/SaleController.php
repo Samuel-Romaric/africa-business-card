@@ -28,7 +28,11 @@ class SaleController extends Controller
                     'id' => $sale->id,
                     'code' => $sale->code,
                     'nom_client' => $sale->nom_client,
+                    'prenom_client' => $sale->prenom_client,
+                    'telephone_client' => $sale->telephone_client,
                     'quantite' => $sale->quantite,
+                    'prix' => $sale->prix,
+                    'total' => $sale->total,
                     'montant_recu' => $sale->montant_recu,
                     'saler_id' => $sale->manager_id,
                     'marchandName' => $sale->getManagerFullName(),
@@ -85,11 +89,14 @@ class SaleController extends Controller
 
         $validator = Validator::make($request->all(),[
             'nom_client' => 'required|string',
+            'prenom_client' => 'required|string',
+            'telephone_client' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
             'sale_id' => 'required|exists:sales,id',
             'saler_id' => 'required|exists:users,id',
             'code' => 'required|string',
-            'quantite' => 'required|numeric|min:1',
+            'quantite' => 'numeric|min:1',
             'montant_recu' => 'required|numeric|min:1',
+            'total' => 'required|numeric|min:1',
         ]);
         
         if ($validator->fails()) {
@@ -105,7 +112,7 @@ class SaleController extends Controller
             return redirect()->back();
         }
 
-        if($sale->offer->price != $request->montant_recu) {
+        if($sale->offer->price > $request->montant_recu) {
             session()->flash('warning', 'Vous devez entrer le bon montant');
             return redirect()->back();
         }
@@ -118,7 +125,11 @@ class SaleController extends Controller
                 'code' => $request->code,
                 'montant_recu' => (int) $request->montant_recu,
                 'nom_client' => $request->nom_client,
+                'prenom_client' => $request->prenom_client,
+                'telephone_client' => $request->telephone_client,
                 'quantite' => (int) $request->quantite,
+                'prix' => (int) $sale->offer->price,
+                'total' => (int) $sale->offer->type === 'service' ? $sale->offer->price : $request->total,
                 'montant_recu' => $request->montant_recu,
                 'manager_id' => $request->saler_id,
             ]);

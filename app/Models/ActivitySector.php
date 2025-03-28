@@ -11,4 +11,8 @@ class ActivitySector extends Model
     function users() {
         return $this->hasMany(User::class);
     }
+
+    function subSectors() {
+        return $this->hasMany(ActivitySubSector::class);
+    }
 }

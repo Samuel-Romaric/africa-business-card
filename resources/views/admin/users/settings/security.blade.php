@@ -22,7 +22,7 @@
         
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Réinitialiser</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-counterclockwise"></i> Réinitialiser</button>
                 </div>
             </div>
         </form>
@@ -50,7 +50,7 @@
         
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Accorder</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i> Valider</button>
                 </div>
             </div>
         </form>

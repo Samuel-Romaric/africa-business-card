@@ -64,12 +64,6 @@
             </div>
             <div class="col-sm-6">
                 {{-- <ol class="breadcrumb float-sm-center">
-                    <div class="mb-3 row">
-                        <label for="" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="">
-                        </div>
-                    </div>
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Dashboard
@@ -91,7 +85,7 @@
                     <th>Nom</th>
                     <th>Secteur d'activité</th>
                     <th>Régistre de commerce</th>
-                    <th>Nombre d'offre</th>
+                    <th>Offres</th>
                     <th>Statut</th>
                     <th>Actions</th>
                 </tr>
@@ -105,8 +99,8 @@
                     <td>{{ $item->getTotalOffer() }}</td>
                     <td>{!! $item->isBlocked() ? '<span class="badge text-bg-danger">Bloqué</span>' : '<span class="badge text-bg-success">Actif</span>' !!}</td>
                     <td>
-                        <a href="{{ route('admin.business.show', ['item_id' => $item->id, 'slug' => $item->slug]) }}" class="btn btn-outline-primary btn-sm">
-                            <i class="bi bi-eye"></i> Voir
+                        <a href="{{ route('admin.business.offers.show', ['item_id' => $item->id, 'slug' => $item->slug]) }}" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-cart3"></i> Offres
                         </a>
                         @if ($item->isBlocked())
                         <a onclick="return confirm('Voulez-vous vraiment débloquer cette entréprise ?')" href="{{ route('admin.business.blocked', ['item_id' => $item->id, 'slug' => $item->slug]) }}" class="btn btn-success btn-sm">

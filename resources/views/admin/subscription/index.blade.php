@@ -39,8 +39,8 @@
     <div class="container-fluid"> 
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Ventes</h3>
-                <h5 class="mb-0">Bilan des ventes</h5>
+                <h3 class="mb-0">Souscription</h3>
+                <h5 class="mb-0">Liste des souscriptions</h5>
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">
@@ -74,36 +74,31 @@
             <table id="Table" class="table table-bordered ">
                 <thead>
                     <tr>
-                        <th>Offre</th>
-                        <th>Type</th>
                         <th>Entreprises</th>
-                        <th>Client</th>
-                        <th>Manager</th>
-                        <th>Telephone</th>
-                        <th>Quatité</th>
-                        <th>Prix unitaire</th>
-                        <th>Total</th>
-                        <th></th>
+                        <th>Periode de validité</th>
+                        <th>Carte</th>
+                        <th>Nombre d'offre</th>
+                        <th>Quatité vendu</th>
+                        <th>Date de souscriptions</th>
+                        {{-- <th>Actions</th> --}}
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($sales as $item)
+                @foreach($subscription as $item)
                     <tr>
-                        <td>{{ $item->offer->titre }}</td>
-                        <td>{{ $item->offer->type }}</td>
                         <td>{{ $item->business->nom_commercial }}</td>
                         <td>{{ $item->nom_client }}</td>
-                        <td>{{ $item->manager->name }}</td>
-                        <td>{{ $item->telephone_client }}</td>
+                        <td>{{ $item->nom_client }}</td>
+                        <td>{{ $item->nombre_offre }}</td>
                         <td>{{ $item->quantite }}</td>
-                        <td>{{ $item->prix }}</td>
-                        <td>{{ $item->total }}</td>
+                        <td>{{ $item->montant_recu }}</td>
                         <td>
                             <a href="javascript:void(0)" onclick="openUpdateModal({{ $item->id }})"  class="btn btn-outline-success btn-sm">
-                                <i class="bi bi-pencil-square"></i> 
+                                <i class="bi bi-pencil-square"></i> Modifier
+                                
                             </a>
                             <a onclick="return confirm('Voulez-vous supprimer cette vente ?')" href="{{ route('admin.sale.delete', $item->id) }}" class="btn btn-outline-danger btn-sm">
-                                <i class="bi bi-trash"></i> 
+                                <i class="bi bi-trash"></i> Supprimer
                             </a>
                         </td> 
                     </tr>
@@ -162,21 +157,15 @@
                 
                 if (result.action == true) {
 
-                    $('#nomClient').val(result.data.nom_client)
-                    $('#prenom_client').val(result.data.prenom_client)
-                    $('#telephone_client').val(result.data.telephone_client)
+                    $('#marchandName').val(result.data.nom_client)
 
                     $('#code').val(result.data.code);
-                    $('#marchandName').val(result.data.marchandName)
-                    $('#amount_received').val(result.data.montant_recu);
-
-                    $('#price').val(result.data.prix)
+                    $('#customerName').val(result.data.nom_client);
                     $('#quantity').val(result.data.quantite);
-                    $('#total').val(result.data.total);
-                    
+                    $('#amount_received').val(result.data.montant_recu);
                     $('#sale_id').val(result.data.id);
                     $('#saler_id').val(result.data.saler_id);
-                    
+                    $('#marchandName').val(result.data.marchandName)
 
                 } else {
                     // toastr.error(result.message);
@@ -192,16 +181,6 @@
         
         $('#saleUpdateModal').modal('show');
     }
-
-    $('#quantity').on('change', function () {
-        let total = 0;
-        let priceU = 0;
-        let quantity = null;
-        priceU = $('#price').val();
-        quantity = $('#quantity').val();
-        total = priceU * quantity;
-        $('#total').val(total);
-    });
 
     $('#saleProductBtn').on('click', function (e) {
         e.preventDefault();

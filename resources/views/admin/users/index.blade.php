@@ -97,38 +97,13 @@
                         <input type="text" class="form-control" placeholder="Rechercher..." id="inputPassword">
                     </div> --}}
                 </div>
-                <ol class="breadcrumb float-sm-center" >
+                <ol class="breadcrumb float-sm-end" >
                     <div class="mb-3 mt-3 row">
-                        {{-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label> --}}
-                        <div class="col-sm-10" style="position:absolute; right: -659px; top: 65px;">
+                        <div class="col-sm-12">
                             <a href="{{ route('admin.user.add-form') }}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Ajouter utilisateur</a>
                         </div>
                     </div>
-                    {{-- <form action="" class="" style="border: 1px solid blue">
-                        <div class="row" style="border: 1px solid red;">
-                            <div class="col-12 d-flex">
-                                <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect03" aria-label="Example select with button addon">
-                                        <option selected>Filtre</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                    <button class="input-group-text" type="button">
-                                        <i class="bi bi-funnel"></i>
-                                    </button>
-                                </div>
-                            </div> 
-                            <div class="col-8"> 
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Rechercher..." aria-label="Rechercher..." aria-describedby="button-addon2">
-                                    <button class="input-group-text" type="button" id="button-addon2">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>   --}}
+                    
                 </ol>
             </div>
         </div>

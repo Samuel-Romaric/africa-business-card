@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Validator;
 class OfferControler extends Controller
 {
     //
-    function showOffers($item_id, $slug) {
-
+    function showOffers(Request $request, $item_id, $slug) {
+        
         $business = Business::where('id', $item_id)->where('slug', $slug)->first();
 
         if (is_null($business)) {
@@ -22,7 +22,38 @@ class OfferControler extends Controller
             return redirect()->back();
         }
 
-        $offers = $business->offers()->paginate(12);
+        // Récupérer les filtres de la requête
+        $type = $request->get('type');
+        $validated = $request->get('validated');
+        $search = $request->get('search');
+        
+        // Commencer la requête pour récupérer les offres
+        $offersQuery = $business->offers();
+
+        if (isset($type) || isset($validated) || isset($search)) {
+
+            // Filtrer par type (produit ou service)
+            if (!empty($type) && $type !== 'all') {
+                $offersQuery->where('type', $type);
+            }
+
+            // Filtrer par statut (validé ou en attente)
+            if ($validated !== 'all') {
+                $offersQuery->where('validated', $validated);
+            }
+
+            // Filtrer par texte de recherche (par exemple, sur le titre ou la description de l'offre)
+            if (!empty($search)) {
+                $offersQuery->where(function ($query) use ($search) {
+                    $query->where('titre', 'like', "%$search%")
+                        ->orWhere('price', 'like', "%$search%")
+                        ->orWhere('description', 'like', "%$search%");
+                });
+            }
+        }
+
+        // Récupérer les offres paginées avec les filtres appliqués
+        $offers = $offersQuery->paginate(12);
 
         return view('admin.business.offers.show', compact('business', 'offers'));
     }

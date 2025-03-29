@@ -55,6 +55,10 @@
     .status-size-12 {
         font-size: 12px;
     }
+
+    .btn-search {
+        cursor: pointer;
+    }
 </style>
 @endpush
 
@@ -70,26 +74,45 @@
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">
-                    {{-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label> --}}
-                    <div class="col-sm-10" style="transform: translate(60px)">
-                        <input type="text" class="form-control" placeholder="Rechercher..." id="inputPassword">
-                    </div>
+                    
                 </div>
-                <ol class="breadcrumb float-sm-center">
-                    {{-- <label for="exampleDataList" class="form-label">Filtre</label>
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Rechercher..."> --}}
-                    {{-- <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword">
+                <ol class="breadcrumb float-sm-end">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-outline-secondary" id="toggleFilter"><i class="bi bi-filter"></i> Filtre</button>
                         </div>
-                    </div> --}}
-                    {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Dashboard
-                    </li> --}}
+                    </div>
                 </ol>
             </div>
+        </div>
+        <div class="mt-3 filter-block" style="display: none;">
+            <form action="{{ route('admin.manager.index') }}" method="GET" id="filter-form">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+                        <select name="type" class="form-control" id="type">
+                            <option value="all" {{ old('type', request('type')) == 'all' ? 'selected' : '' }}>Tous Profiles</option>
+                            <option value="junior" {{ old('type', request('type')) == 'junior' ? 'selected' : '' }}>Juniors</option>
+                            <option value="senior" {{ old('type', request('type')) == 'senior' ? 'selected' : '' }}>Seniors</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select name="is_blocked" class="form-control" id="">
+                            <option value="all" {{ old('is_blocked', request('is_blocked')) == 'all' ? 'selected' : '' }}>Statut</option>
+                            <option value="0" {{ old('is_blocked', request('is_blocked')) == '0' ? 'selected' : '' }}>Actifs</option>
+                            <option value="1" {{ old('is_blocked', request('is_blocked')) == '1' ? 'selected' : '' }}>Bloqués</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group mb-3 float-end">
+                            <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Rechercher..." id="inputSearch">
+                            <span class="input-group-text">
+                                <a id="btn-search" class="btn-search"><i class="bi bi-search"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div> <!-- end::Row -->
 </div>
@@ -147,7 +170,7 @@
             <div class="col-lg-12">
                 <div class="text-center py-5">
                     <p><img src="{{ asset('/admin/assets/img/research-paper.png') }}" style="height: 100px" alt="" srcset=""></p>
-                    <p class="text-gray" style="color: #a9a8a8">Aucun manager pour l'instant</p>
+                    <p class="text-gray" style="color: #a9a8a8; font-size: 25px">Aucun resultat trouvé</p>
                 </div>
             </div>
             @endforelse
@@ -201,4 +224,16 @@
 @endsection
 
 @push('scripts')
+<script>
+    // jQuery pour afficher et cacher la div avec un bouton
+    $(document).ready(function() {
+        $('#toggleFilter').click(function() {
+            $('.filter-block').toggle(); // Alterne entre afficher et cacher
+        });
+    });
+
+    $('#btn-search').on('click', function (e) {
+        $('#filter-form').submit();
+    })
+</script>
 @endpush

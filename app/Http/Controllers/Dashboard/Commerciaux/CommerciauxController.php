@@ -11,8 +11,51 @@ use Illuminate\Http\Request;
 class CommerciauxController extends Controller
 {
     //
-    function showAllCommerciaux() {
-        $commerciaux = Commercial::orderBy('created_at', 'DESC')->paginate(12);
+    function showAllCommerciaux(Request $request) {
+        
+        $type = $request->get('type');
+        $is_blocked = $request->get('is_blocked');
+        $search = $request->get('search');
+
+        $commerciauxQuery = Commercial::with('user')  // Nous utilisons "with" pour charger la relation user
+                            ->orderBy('created_at', 'DESC');
+
+        if (isset($type) || isset($is_blocked) || isset($search)) {
+            
+            if ($type && $type !== 'all') {
+                $commerciauxQuery->where('type', $type);
+            }
+
+            // Filtrer par statut (bloqué ou actif), ici on applique le filtre sur la table 'users'
+            if ($is_blocked !== 'all') {
+                $commerciauxQuery->whereHas('user', function ($query) use ($is_blocked) {
+                    $query->where('is_blocked', $is_blocked);
+                });
+            }
+
+            // Filtrer par recherche, sur les champs de la table 'users'
+            if ($search) {
+                $commerciauxQuery->whereHas('user', function ($query) use ($search) {
+                    $query->where('firstname', 'like', "%$search%")
+                        ->orWhere('name', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%")
+                        ->orWhere('slug', 'like', "%$search%")
+                        ->orWhere('num_cni', 'like', "%$search%")
+                        ->orWhere('date_naissance', 'like', "%$search%")
+                        ->orWhere('code', 'like', "%$search%")
+                        ->orWhere('telephone', 'like', "%$search%")
+                        ->orWhere('whatsapp', 'like', "%$search%")
+                        ->orWhere('diplome', 'like', "%$search%")
+                        ->orWhere('pays', 'like', "%$search%")
+                        ->orWhere('departement', 'like', "%$search%")
+                        ->orWhere('ville', 'like', "%$search%")
+                        ->orWhere('description', 'like', "%$search%");
+                });
+            }
+        }
+
+        // Paginer les résultats avec les filtres appliqués
+        $commerciaux = $commerciauxQuery->paginate(12);
         $activitySector = ActivitySector::all()->pluck('id', 'titre');
         
         return view('admin.commerciaux.index', compact('commerciaux', 'activitySector'));

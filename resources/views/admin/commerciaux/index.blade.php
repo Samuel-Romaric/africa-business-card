@@ -78,6 +78,10 @@
         border-radius: 50%;
         color: #8c8c8c;
     }
+
+    .btn-search {
+        cursor: pointer;
+    }
 </style>
 @endpush
 
@@ -93,42 +97,44 @@
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">
-                    {{-- <div class="col-sm-10" style="transform: translate(60px)">
-                        <input type="text" class="form-control" placeholder="Rechercher..." id="inputPassword">
-                    </div> --}}
                 </div>
-                <ol class="breadcrumb float-sm-center" >
-                    {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        fnekerjfel
-                    </li> --}}
-                    {{-- <form action="" class="" style="border: 1px solid blue">
-                        <div class="row" style="border: 1px solid red;">
-                            <div class="col-12 d-flex">
-                                <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect03" aria-label="Example select with button addon">
-                                        <option selected>Filtre</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                    <button class="input-group-text" type="button">
-                                        <i class="bi bi-funnel"></i>
-                                    </button>
-                                </div>
-                            </div> 
-                            <div class="col-8"> 
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Rechercher..." aria-label="Rechercher..." aria-describedby="button-addon2">
-                                    <button class="input-group-text" type="button" id="button-addon2">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
-                            </div>
+                <ol class="breadcrumb float-sm-end">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-outline-secondary" id="toggleFilter"><i class="bi bi-filter"></i> Filtre</button>
                         </div>
-                    </form>   --}}
+                    </div>
                 </ol>
             </div>
+        </div>
+        <div class="mt-3 filter-block" style="display: none;">
+            <form action="{{ route('admin.commerciaux.index') }}" method="GET" id="filter-form">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+                        <select name="type" class="form-control" id="type">
+                            <option value="all" {{ old('type', request('type')) == 'all' ? 'selected' : '' }}>Profiles</option>
+                            <option value="junior" {{ old('type', request('type')) == 'junior' ? 'selected' : '' }}>Juniors</option>
+                            <option value="senior" {{ old('type', request('type')) == 'senior' ? 'selected' : '' }}>Seniors</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select name="is_blocked" class="form-control" id="">
+                            <option value="all" {{ old('is_blocked', request('is_blocked')) == 'all' ? 'selected' : '' }}>Statut</option>
+                            <option value="0" {{ old('is_blocked', request('is_blocked')) == '0' ? 'selected' : '' }}>Actifs</option>
+                            <option value="1" {{ old('is_blocked', request('is_blocked')) == '1' ? 'selected' : '' }}>Bloqués</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group mb-3 float-end">
+                            <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Rechercher..." id="inputSearch">
+                            <span class="input-group-text">
+                                <a id="btn-search" class="btn-search"><i class="bi bi-search"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div> <!-- end::Row -->
 </div>
@@ -140,11 +146,7 @@
         <div class="row g-4">
             @forelse ($commerciaux as $item)
                 <div class="col-md-4">
-                    {{-- <div class="card border-primary mb-3" style="max-width: 18rem;"> --}}
                     <div class="card mb-3" style="max-width: 100%;">
-                        {{-- <div class="card-header">
-                            Header
-                        </div> --}}
                         <div class="card-body">
                             <div class="btn-group" style="position: absolute; right: 10px; cursor: pointer">
                                 <div class="btn-dots-action dot-action-rounde" data-bs-toggle="dropdown" aria-expanded="false">
@@ -188,7 +190,7 @@
                 <div class="col-lg-12">
                     <div class="text-center py-5">
                         <p><img src="{{ asset('/admin/assets/img/research-paper.png') }}" style="height: 100px" alt="" srcset=""></p>
-                        <p class="text-gray" style="color: #a9a8a8">Aucun manager pour l'instant</p>
+                        <p class="text-gray" style="color: #a9a8a8; font-size: 25px">Aucun resultat trouvé</p>
                     </div>
                 </div>
             @endforelse
@@ -277,94 +279,19 @@
 @endsection
 
 @push('scripts')
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/r-3.0.3/datatables.min.js"></script> --}}
 <script src="{{ asset('admin/js/sweetalert2@11.js') }}"></script>
 <script>
-    // let get_sale_route = "{{-- route('admin.sale.get-by-ajax') --}}";
 
-    // $(document).ready(function () {
-    //     $('#Table').DataTable({
-    //         responsive: true,
-    //         dom: 'Bfrtip',
-    //         buttons: [
-    //             // 'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
-    //             'copy', 'csv', 'excel', 'pdf', 'print'
-    //         ],
-    //         language: {
-    //             url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
-    //         }
-    //     });
-    // });
+    // jQuery pour afficher et cacher la div avec un bouton
+    $(document).ready(function() {
+        $('#toggleFilter').click(function() {
+            $('.filter-block').toggle(); // Alterne entre afficher et cacher
+        });
+    });
 
-        
-    // function openUpdateModal(sale_id) {
-    //     $('#updateSaleProductForm').trigger('reset');
-    //     // $('#sale_id').val(sale_id);
-    //     console.log(sale_id);
-        
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-    //     $.ajax({
-    //         type: "GET",
-    //         url: get_sale_route+"?item_id="+sale_id,
-    //         success: function(result) {
-    //             console.log(result);
-                
-    //             if (result.action == true) {
-
-    //                 $('#code').val(result.data.code);
-    //                 $('#quantity').val(result.data.quantity);
-    //                 $('#amount_received').val(result.data.amount_received);
-    //                 $('#sale_id').val(result.data.id);
-
-    //             } else {
-    //                 // toastr.error(result.message);
-    //                 console.log('No data find...');
-                    
-    //             }
-    //         },
-    //         error: (e) => {
-    //             console.log(e);
-    //             console.log(e.responseJSON);
-    //         }
-    //     });
-        
-    //     $('#saleUpdateModal').modal('show');
-    // }
-
-    // $('#saleProductBtn').on('click', function (e) {
-    //     e.preventDefault();
-
-    //     const form = $('#updateSaleProductForm')[0];
-
-    //     if (form.reportValidity()) {
-    //         $('#updateSaleProductForm').submit();
-    //     } else {
-    //         form.reportValidity();
-    //     }
-    // });
-
-    // function deleteItem(item_id) {
-    //     if (item_id != "") {
-    //         Swal.fire({
-    //             title: 'Voulez vous bloquer ce commentaire?',
-    //             icon: 'warning',
-    //             showCloseButton: true,
-    //             showCancelButton: true,
-    //             confirmButtonText: 'Oui',
-    //             cancelButtonText: 'Non',
-    //         }).then((result) => {
-    //             if (result.isConfirmed) {
-    //                 _sendRequest(url_make_action, item_id, 'POST');
-    //             }
-    //         });
-    //     }
-    // }
+    $('#btn-search').on('click', function (e) {
+        $('#filter-form').submit();
+    })
 
 </script>
 @endpush

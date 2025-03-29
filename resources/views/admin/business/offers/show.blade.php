@@ -136,28 +136,28 @@
             </div>
         </div>
         <div class="mt-3 filter-block" style="display: none;">
-            <form action="" id="filter-form">
+            <form action="{{ route('admin.business.offers.show', ['item_id' => $business->id, 'slug' => $business->slug]) }}" method="GET" id="filter-form">
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-2">
-                        <select name="" class="form-control" id="">
-                            <option value="">Types d'offre</option>
-                            <option value="">Produits</option>
-                            <option value="">Services</option>
+                        <select name="type" class="form-control" id="type">
+                            <option value="all" {{ old('type', request('type')) == 'all' ? 'selected' : '' }}>Types d'offre</option>
+                            <option value="produit" {{ old('type', request('type')) == 'produit' ? 'selected' : '' }}>Produits</option>
+                            <option value="service" {{ old('type', request('type')) == 'service' ? 'selected' : '' }}>Services</option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <select name="" class="form-control" id="">
-                            <option value="">Statut</option>
-                            <option value="">Valider</option>
-                            <option value="">En attente</option>
+                        <select name="validated" class="form-control" id="">
+                            <option value="all" {{ old('validated', request('validated')) == 'all' ? 'selected' : '' }}>Statut</option>
+                            <option value="0" {{ old('validated', request('validated')) == '0' ? 'selected' : '' }}>En attente</option>
+                            <option value="1" {{ old('validated', request('validated')) == '1' ? 'selected' : '' }}>Valider</option>
                         </select>
                     </div>
                     <div class="col-md-5">
                         <div class="input-group mb-3 float-end">
-                            <input type="text" class="form-control" placeholder="Rechercher..." id="inputSearch">
+                            <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Rechercher..." id="inputSearch">
                             <span class="input-group-text">
-                                <a class="btn-search"><i class="bi bi-search"></i></a>
+                                <a id="btn-search" class="btn-search"><i class="bi bi-search"></i></a>
                             </span>
                         </div>
                     </div>
@@ -393,5 +393,9 @@
             $('.filter-block').toggle(); // Alterne entre afficher et cacher
         });
     });
+    
+    $('#btn-search').on('click', function (e) {
+        $('#filter-form').submit();
+    })
 </script>
 @endpush

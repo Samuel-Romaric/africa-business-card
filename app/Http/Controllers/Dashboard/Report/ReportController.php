@@ -28,7 +28,8 @@ class ReportController extends Controller
 
         // Vérifier si AU MOINS un champ est rempli
         if (!$request->filled(['manager', 'business', 'start_date', 'end_date'])) {
-            return view('admin.report.show', ['sales' => []]); // Renvoie une liste vide
+            // return view('admin.report.show', ['sales' => []]); // Renvoie une liste vide
+            return view('admin.report.show', ['sales' => $query->get()]); // Renvoie une liste vide
         }
 
         // 🔹 Filtrer par manager (via users)

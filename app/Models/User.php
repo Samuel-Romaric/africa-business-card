@@ -142,18 +142,18 @@ class User extends Authenticatable implements HasMedia
 
     function getStatus() {
         if ($this->isBlocked()) {
-            return 'Bloqué';
+            return 'bloqué';
         }
 
-        return 'Actif';
+        return 'activé';
     }
 
     function getStatusClass() {
         if ($this->isBlocked()) {
-            return 'status-danger';
+            return 'status2-danger';
         }
 
-        return 'status-success';
+        return 'status2-success';
     }
 
     function isManager() {

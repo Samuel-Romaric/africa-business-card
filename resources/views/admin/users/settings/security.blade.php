@@ -39,8 +39,8 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Ajouter le droit de gestion des comptes ?</label>
                         <select class="form-select" name="permission" aria-label="Premission selection">
-                            <option value="is_admin" selected>Rétirer l'accès au comptes</option>
-                            <option value="is_global">Gérer tous les comptes</option>
+                            <option value="is_admin" {{ $user->is_global_admin === 0  ? 'selected' : '' }}>Rétirer l'accès au comptes</option>
+                            <option value="is_global" {{ $user->is_global_admin === 1  ? 'selected' : '' }}>Gérer tous les comptes</option>
                           </select>
                     </div>
                 </div>

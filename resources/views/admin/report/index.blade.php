@@ -50,7 +50,7 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-8 bg-light p-4 rounded shadow">
-                    <form method="POST" action="{{ route('admin.report.show') }}">
+                    <form method="GET" action="{{ route('admin.report.show') }}">
                         @csrf
                         <!-- Première ligne : Choix du filtre et champ dynamique -->
                         <div class="row mb-3">
@@ -261,7 +261,7 @@
         <!--begin::Row-->
     </div>
 
-    @include('admin.sales.modals.update-sale')
+    {{-- @include('admin.sales.modals.update-sale') --}}
 
     <!--end::Container-->
 </div>

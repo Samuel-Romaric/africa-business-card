@@ -50,6 +50,30 @@
         font-size: 15px;
     }
 
+    .status {
+        padding: 1.5px 8px 1.5px 8px;
+        border-radius: 30px;
+        font-size: 15px;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .status2-success {
+        color: #0fac82;
+        /* background-color: #ddfff3; */
+    }
+
+    .status2-warning {
+        color: #ff9b00;
+        /* background-color: #fef7ea;* #fbe8ca; */
+    }
+
+    .status2-danger {
+        color: #cf2213;
+        /* background-color: #fdc5c5; */
+    }
+
+
     .status-success {
         border: 0.5px solid #ddfff3;
         color: #3dc094; /** #58be9c */
@@ -64,10 +88,6 @@
         background-color: #fff1e8;
         padding: 1.5px 12px 1.5px 12px;
         border-radius: 50px;
-    }
-
-    .status-size-12 {
-        font-size: 12px;
     }
 
     .position-relative-left{
@@ -122,16 +142,17 @@
                     </div>
                     <div class="flex-grow-1" style="margin-top: 20px">
                         <h3 class="dropdown-item-title" style="font-size: 20px;">
-                            {{ $user->firstname }} {{ $user->name }} <span class="{{ $user->getStatusClass() }} status-size-12"><i class="bi bi-patch-{{ $user->isBlocked() ? 'exclamation' : 'check' }}"></i> {{ $user->getStatus() }}</span>
+                            {{ $user->getFullName() }}
                         </h3>
                         <p class="fs-7">
-                            <span class="sub-info">{{ \Str::ucfirst($user->role) }}<i class="bi bi-dot"></i>{{ \Str::ucfirst($user->manager->type) }}</span> 
+                            <span class="sub-info">@manager_{{ $user->manager->type }}</span> <span class="{{ $user->getStatusClass() }}"><i class="bi bi-record-fill" style="font-size: 10px"></i> {{ $user->getStatus() }}</span>
+                            {{-- <span class="sub-info">{{ \Str::ucfirst($user->role) }}<i class="bi bi-dot"></i>{{ \Str::ucfirst($user->manager->type) }}</span>  --}}
                         </p>
                     </div>
                 </div>
 
                 <div class="position-relative-left">
-                    <a href="{{ route('admin.manager.index') }}" class="btn btn-outline-secondary"><i class="bi bi-reply"></i> Retour </a>
+                    <a href="{{ route('admin.manager.index') }}" class="btn btn-outline-secondary"><i class="bi bi-reply"></i> Retour</a>
                 </div>
 
                 <hr style="color: rgb(184, 184, 184)">
@@ -150,7 +171,7 @@
                             </div>
                             <div class="col-md-8">
                                 {{ $user->code }} <br>
-                                {{ $user->name }} <br>
+                                {{ $user->getFullName() }} <br>
                                 {{ $user->email }} <br>
                                 {{ $user->telephone }} <br>
                                 {{ $user->whatsapp }} <br>

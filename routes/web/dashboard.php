@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\Business\Offer\OfferControler;
 use App\Http\Controllers\Dashboard\Commerciaux\CommerciauxController;
 use App\Http\Controllers\Dashboard\GeneralManagerController;
 use App\Http\Controllers\Dashboard\Manager\ManagerController;
+use App\Http\Controllers\Dashboard\Profile\ProfilController;
 use App\Http\Controllers\Dashboard\Report\ReportController;
 use App\Http\Controllers\Dashboard\Sale\SaleController;
 use App\Http\Controllers\Dashboard\Subscription\SubscriptionController;
@@ -80,7 +81,7 @@ Route::middleware('auth')->group(function () {
     // Report Routes
     Route::prefix('/report')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('report.index');
-        Route::post('/show', [ReportController::class, 'showReport'])->name('report.show');
+        Route::get('/show', [ReportController::class, 'showReport'])->name('report.show');
     });
 
     // Manage Users Routes
@@ -96,6 +97,13 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/user/add/form', [UserController::class, 'showAddFormUser'])->name('user.add-form');
         Route::post('/user/add/', [UserController::class, 'addUser'])->name('user.add-user');
+    });
+
+    Route::prefix('/profile')->group(function () {
+        Route::get('/', [ProfilController::class, 'showProfile'])->name('profile.show');
+        Route::get('/settings/{slug}', [ProfilController::class, 'settingsProfile'])->name('profile.settings');
+        Route::post('/settings/update/info', [ProfilController::class, 'updatePersonalInfo'])->name('profile.update-personal-info');
+        Route::post('/settings/reset/password', [ProfilController::class, 'resetPassword'])->name('profile.reset-password');
     });
     
 });

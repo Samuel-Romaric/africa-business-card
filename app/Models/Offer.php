@@ -63,6 +63,14 @@ class Offer extends Model implements HasMedia
         return 'en attente';
     }
 
+    function getStatusClass() {
+        if ($this->isValidated()) {
+            return 'status-success';
+        }
+
+        return 'status-warning';
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('coverOffer')

@@ -12,7 +12,9 @@
         background-color: #fbf3c4;
         padding: 20px 40px;
         border-radius: 15px;
-        width: 158vh;
+        width: 98%;
+        margin-right: 50%;
+        /* width: 158vh; */
         height: 180px;
         margin-left: 10px;
     }
@@ -98,6 +100,33 @@
     .btn-search {
         cursor: pointer;
     }
+
+    .type-offer {
+        color: #acacac;
+        /* font-style: italic; */
+    }
+
+    .status {
+        /* background-color: #f4f4f4; */
+        padding: 1.5px 15px 1.5px 15px;
+        /* padding: 1.5px 10px 1.5px 10px; */
+        border-radius: 30px;
+        font-size: 15px;
+        align-items: center;
+        font-weight: bold;
+        /* border: 0.5px solid #d0d0d0; */
+        /* color: #396ed9; */
+    }
+
+    .status-success {
+        color: #0fac82;
+        background-color: #ddfff3;
+    }
+
+    .status-warning {
+        color: #ff9b00;
+        background-color: #fef7ea;/** #fbe8ca; */
+    }
 </style>
 @endpush
 
@@ -171,8 +200,6 @@
     <div class="container-fluid">
         <!--begin::Row-->
 
-        {{-- @include('layouts.partials.flash-message') --}}
-
         <div class="row g-4">
             @forelse ($offers as $offer)
             <div class="col-md-4">
@@ -185,8 +212,8 @@
                         <div class="information">
                             <span class="product-title">{{ $offer->titre }}</span>
                             <span class="price">{{ formatPrice($offer->price) }}</span>
-                            <span class="quantity">{{ \Str::ucfirst($offer->type) }}</span>
-                            <span class="quantity">{{ \Str::ucfirst($offer->getStatus()) }}</span>
+                            <span class="type-offer"><i class="bi bi-boxes"></i> {{ \Str::ucfirst($offer->type) }}</span>
+                            <span class="status {{ $offer->getStatusClass() }}">{{ \Str::ucfirst($offer->getStatus()) }}</span>
                         </div>
                         <div class="card-text">
                             <div class="description">
@@ -205,7 +232,7 @@
                                         @else
                                         <div>
                                             <a onclick="return confirm('Voulez-vous valider cette offre ?');" href="{{ route('admin.business.offer.validated', ['item_id' => $business->id, 'slug' => $business->slug, 'offer_id' => $offer->id]) }}" class="btn btn-sm btn-warning mt-2">
-                                                <i class="bi bi-check-square"></i> Valider 
+                                                <i class="bi bi-patch-check"></i> Valider 
                                             </a>
                                         </div>
                                         @endif
@@ -214,7 +241,7 @@
                                         <div class="position-relative">
                                             <div class="position-absolute end-0">
                                                 <a href="{{ route('admin.business.offer.edit', ['item_id' => $business->id, 'slug' => $business->slug, 'offer_id' => $offer->id]) }}" class="btn btn-sm btn-secondary rounded-pill mt-2">
-                                                    <i class="bi bi-pencil-square"></i> 
+                                                    <i class="bi bi-pen"></i> 
                                                 </a>
                                                 @if ($offer->isValidated())
                                                 <a onclick="return confirm('Voulez-vous rétirer cette offre ?');" href="{{ route('admin.business.offer.validated', ['item_id' => $business->id, 'slug' => $business->slug, 'offer_id' => $offer->id]) }}" class="btn btn-sm btn-secondary rounded-pill mt-2">
@@ -280,7 +307,7 @@
             <div class="col-lg-12">
                 <div class="text-center py-5">
                     <p class="text-muted">
-                        <i class="bi bi-box" style="font-size: 40px; color:#c0bfbf"></i> <br>
+                        <i class="bi bi-boxes" style="font-size: 40px; color:#c0bfbf"></i><br>
                         Aucune offre disponible
                     </p>
                 </div>

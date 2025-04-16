@@ -75,18 +75,20 @@
                                     class="rounded-circle shadow" alt="User Image">
                                 <p>
                                     {{ \Auth::user()->name }} - Administrateur
-                                    <small>Membre depuis Nov. 2025</small>
+                                    <small>Membre depuis - {{ \Auth::user()->created_at->isoFormat('mm Y') }}</small>
                                 </p>
                             </li>
                             <!--end::User Image-->
                             <!--begin::Menu Body-->
                             <!--end::Menu Body-->
                             <!--begin::Menu Footer-->
-                            <li class="user-footer"> <a href="/" class="btn btn-default btn-flat">Profile</a>
+                            <li class="user-footer"> <a href="{{ route('admin.profile.show') }}" class="btn btn-outline-default btn-flat"><i class="bi bi-person-badge"></i> Profile</a>
                                 
-                                <a href="javascript:void(0)" class="btn btn-default btn-flat float-end"
+                                <a href="javascript:void(0)" class="btn btn-outline-secondary btn-flat float-end"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                     <em class="icon ni ni-signout"></em><span>Déconnexion</span>
+                                     <i class="bi bi-power"></i><span> Déconnexion</span>
+                                     {{-- <i class="bi bi-box-arrow-right"></i><span> Déconnexion</span> --}}
+                                     {{-- <em class="icon ni ni-signout"></em><span>Déconnexion</span> --}}
                                  </a>
                                  <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
                                        style="display: none;">

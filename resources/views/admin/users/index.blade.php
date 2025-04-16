@@ -5,6 +5,42 @@
 @push('styles')
 <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/r-3.0.3/datatables.min.css" rel="stylesheet">
 <style>
+    /* Bordure externe du tableau */
+    #Table.table.dataTable {
+        border: 1px solid #dee2e6; /* Gris clair */
+        border-radius: 45px; /* Coins légèrement arrondis */
+        /*overflow: hidden;  Évite les débordements */
+        border-collapse: collapse; /* Éviter les espaces entre les bordures */
+        width: 100%; /* Assurer une bonne mise en page */
+    }
+
+    /* Lignes internes entre les rangées */
+    .table.dataTable tbody tr {
+        border-bottom: 1px solid #ebeaea; /* Gris clair */
+        /* border-bottom: 1px solid #dee2e6; Gris clair */
+    }
+
+    /* Effet hover léger */
+    .table.dataTable tbody tr:hover {
+        background-color: #f8f9fc; /* Gris clair au survol */
+    }
+
+    /* Alignement des en-têtes */
+    .table.dataTable thead th {
+         background-color: #0a0a33;/* Bleu foncé comme sur ton image */
+        /* background-color: #e4e4e4;  */
+        color: #ececfc;
+        text-align: left;
+    }
+
+    /* Espacement et padding pour un rendu propre */
+    .table.dataTable th, .table.dataTable td {
+        padding: 10px 15px;
+    }
+
+
+    /************ Old CSS  **********/
+
     .table th, .table td {
         vertical-align: middle;
     }
@@ -66,6 +102,29 @@
         background-color: #fff1e8;
         padding: 1.5px 10px 1.5px 10px;
         border-radius: 50px;
+    }
+
+    .status {
+        padding: 1.5px 15px 1.5px 15px;
+        border-radius: 30px;
+        font-size: 15px;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .status2-success {
+        color: #0fac82;
+        /* background-color: #ddfff3; */
+    }
+
+    .status2-warning {
+        color: #ff9b00;
+        /* background-color: #fef7ea;* #fbe8ca; */
+    }
+
+    .status2-danger {
+        color: #cf2213;
+        /* background-color: #fdc5c5; */
     }
 
     .status-size {
@@ -179,15 +238,15 @@
             @endif
         </div> --}}
 
-        @php
+        {{-- @php
             $i = 1
-        @endphp
+        @endphp --}}
 
-            <table id="Table" class="table table-striped table-hover">
-                <thead class="table-light">
+            <table id="Table" class="table table-hover">
+                <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Profile</th>
+                        {{-- <th>#</th> --}}
+                        <th>Profile utilisateur</th>
                         <th>Téléphone</th>
                         <th>Privilèges</th>
                         <th>Statut</th>
@@ -199,7 +258,7 @@
                 <tbody>
                 @foreach($users as $item)
                     <tr>
-                        <td>{{ $i++ }}</td>
+                        {{-- <td>{{ $i++ }}</td> --}}
                         <td>
                             <div class="d-flex" style="justify-content: center;">
                                 <div class="flex-shrink-0">
@@ -218,7 +277,7 @@
                         <td>{{ $item->telephone }}</td>
                         <td>{{ $item->getPrivilege() }}</td>
                         <td>
-                            <span class="{{ getUserStatusClass($item) }}"><i class="bi bi-record-fill" style="font-size: 10px"></i> {{ getUserStatus($item) }}</span>
+                            <span class="status {{ $item->getStatusClass() }}"><i class="bi bi-record-fill" style="font-size: 10px"></i> {{ $item->getStatus() }}</span>
                         </td>
                         <td>{{ $item->updated_at->format('d M Y') }}</td>
                         <td>{{ $item->created_at->format('d M Y') }}</td>
@@ -230,7 +289,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="javascript:void(0)">Action</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-primary" href="{{ route('admin.user.show', ['user_id' => $item->id, 'slug' => $item->slug]) }}"><i class="bi bi-person"></i> Voir Profile</a></li>
+                                    <li><a class="dropdown-item text-muted" href="{{ route('admin.user.show', ['user_id' => $item->id, 'slug' => $item->slug]) }}"><i class="bi bi-person"></i> Afficher Profile</a></li>
                                     {{-- <li><a class="dropdown-item text-warning" href="{{ route('admin.user.show', ['user_id' => $item->id, 'slug' => $item->slug]) }}"><i class="bi bi-arrow-repeat"></i> Reinitialiser</a></li>       --}}
                                     </li>
                                     <li><a class="dropdown-item {{ $item->isBlocked() ? 'text-success' : 'text-danger' }}" onclick="return confirm('Voulez-vous bloquer cet utilisateur ?')" href="{{ route('admin.user.blocked', $item->id) }}">

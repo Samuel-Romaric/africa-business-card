@@ -36,6 +36,30 @@
         color: #8c8c8c;
     }
 
+
+    .status {
+        padding: 1.5px 8px 1.5px 8px;
+        border-radius: 30px;
+        font-size: 15px;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .status2-success {
+        color: #0fac82;
+        /* background-color: #ddfff3; */
+    }
+
+    .status2-warning {
+        color: #ff9b00;
+        /* background-color: #fef7ea;* #fbe8ca; */
+    }
+
+    .status2-danger {
+        color: #cf2213;
+        /* background-color: #fdc5c5; */
+    }
+
     .status-success {
         border: 0.5px solid #ddfff3;
         color: #3dc094; /** #58be9c */
@@ -50,10 +74,6 @@
         background-color: #fff1e8;
         padding: 1.5px 10px 1.5px 10px;
         border-radius: 50px;
-    }
-
-    .status-size-12 {
-        font-size: 12px;
     }
 
     .btn-search {
@@ -134,7 +154,7 @@
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="javascript:void(0)">Action</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-primary" href="{{ route('admin.manager.show', $item->user->id) }}"><i class="bi bi-eye"></i> Voir detail</a></li>
+                                    <li><a class="dropdown-item text-muted" href="{{ route('admin.manager.show', $item->user->id) }}"><i class="bi bi-eye"></i> Afficher Profile</a></li>
                                     <li><a class="dropdown-item {{ $item->user->isBlocked() ? 'text-success' : 'text-danger' }}" onclick="return confirm('Voulez-vous bloquer cet utilisateur ?')" href="{{ route('admin.manager.blocked', $item->user->id) }}">
                                             {!! $item->user->isBlocked() ? '<i class="bi bi-unlock"></i> Débloquer' : '<i class="bi bi-lock"></i> Bloquer'!!} 
                                         </a>
@@ -150,7 +170,8 @@
                                         {{ $item->user->firstname }} {{ $item->user->name }}
                                     </h3>
                                     <p class="fs-7">
-                                        <span class="sub-info">@manager_{{ $item->type }}</span> <span class="{{ $item->user->getStatusClass() }} status-size-12"><i class="bi bi-patch-{{ $item->user->isBlocked() ? 'exclamation' : 'check' }}"></i> {{ $item->user->getStatus() }}</span>
+                                        <span class="sub-info">@manager_{{ $item->type }}</span> <span class="{{ $item->user->getStatusClass() }}"><i class="bi bi-record-fill" style="font-size: 10px"></i> {{ $item->user->getStatus() }}</span>
+                                        {{-- <span class="sub-info">@manager_{{ $item->type }}</span> <span class=" {{ $item->user->getStatusClass() }}"><i class="bi bi-patch-{{ $item->user->isBlocked() ? 'exclamation' : 'check' }}"></i> {{ $item->user->getStatus() }}</span> --}}
                                         {{-- <span class="sub-info">@manager_{{ $item->type }}</span> <span class="{{ $item->user->getStatusClass() }} status-size-12"><i class="bi bi-circle-fill" style="min-height: 1px;"></i> {{ $item->user->getStatus() }}</span> --}}
                                     </p>
                                 </div>
@@ -169,8 +190,8 @@
             @empty
             <div class="col-lg-12">
                 <div class="text-center py-5">
-                    <p><img src="{{ asset('/admin/assets/img/research-paper.png') }}" style="height: 100px" alt="" srcset=""></p>
-                    <p class="text-gray" style="color: #a9a8a8; font-size: 25px">Aucun resultat trouvé</p>
+                    <p><img src="{{ asset('/admin/assets/img/research-paper.png') }}" style="height: 70px" alt="" srcset=""></p>
+                    <p class="text-gray" style="color: #a9a8a8; font-size: 20px">Aucun resultat trouvé</p>
                 </div>
             </div>
             @endforelse

@@ -53,7 +53,7 @@ class OfferControler extends Controller
         }
 
         // Récupérer les offres paginées avec les filtres appliqués
-        $offers = $offersQuery->paginate(12);
+        $offers = $offersQuery->orderBy('created_at', 'DESC')->paginate(12);
 
         return view('admin.business.offers.show', compact('business', 'offers'));
     }

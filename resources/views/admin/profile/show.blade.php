@@ -43,44 +43,8 @@
         font-size: 15px;
     }
 
-    .status-success {
-        border: 0.5px solid #ddfff3;
-        color: #3dc094; /** #58be9c */
-        background-color: #ddfff3;
-        padding: 1.5px 18px 1.5px 18px;
-        border-radius: 50px;
-    }
 
-    .status-danger {
-        border: 0.5px solid #fff1e8;
-        color: #e34d2f; /** #ea745c */
-        background-color: #fff1e8;
-        padding: 1.5px 12px 1.5px 12px;
-        border-radius: 50px;
-    }
-
-    .status {
-        padding: 1.5px 8px 1.5px 8px;
-        border-radius: 30px;
-        font-size: 15px;
-        align-items: center;
-        font-weight: bold;
-    }
-
-    .status2-success {
-        color: #0fac82;
-        /* background-color: #ddfff3; */
-    }
-
-    .status2-warning {
-        color: #ff9b00;
-        /* background-color: #fef7ea;* #fbe8ca; */
-    }
-
-    .status2-danger {
-        color: #cf2213;
-        /* background-color: #fdc5c5; */
-    }
+    
 
     .position-relative-left{
         position: absolute;
@@ -98,8 +62,8 @@
     <div class="container-fluid"> 
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Adminstrateur</h3>
-                <h5 class="mb-0">Profile adminstrateur</h5>
+                <h3 class="mb-0">Profile</h3>
+                <h5 class="mb-0">Profile personnel</h5>
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">
@@ -131,24 +95,22 @@
                     </div>
                     <div class="flex-grow-1" style="margin-top: 20px">
                         <h3 class="dropdown-item-title" style="font-size: 20px;">
-                            {{ $user->getFullName() }} 
+                            {{ $user->getFullName() }}
                         </h3>
                         <p class="fs-7">
                             <span class="sub-info">@compte_administrateur</span> <span class="{{ $user->getStatusClass() }}"><i class="bi bi-record-fill" style="font-size: 10px"></i> {{ $user->getStatus() }}</span>
-                            {{-- <span class="sub-info">{{ \Str::ucfirst($user->role) }}</span>  --}}
                         </p>
                     </div>
                 </div>
 
                 <div class="position-relative-left">
-                    <a href="{{ route('admin.user.edit', ['user_id' => $user->id, 'slug' => $user->slug]) }}" class="btn btn-primary"><i class="bi bi-gear"></i></a>
-                    {{-- <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary"><i class="bi bi-reply"></i> </a> --}}
+                    <a href="{{ route('admin.profile.settings', ['slug' => $user->slug]) }}" class="btn btn-outline-secondary"><i class="bi bi-gear"></i> </a>
                 </div>
 
-                <hr style="color: rgb(184, 184, 184)">
+                {{-- <hr style="color: rgb(184, 184, 184)"> --}}
 
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row mt-4">
+                    <div class="col-md-6" style="background-color: #f8f8f8; border-radius: 10px; padding: 20px; margin: 2px 20px 2px 20px; width: 45%">
                         <h6 class="card-subtitle mb-2 text-muted"><i class="bi bi-dot"></i>Information Générale</h6>
                         <div class="row">
                             <div class="col-md-4 text-muted">
@@ -165,7 +127,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 float-md-end" style="background-color: #f8f8f8; border-radius: 10px; padding: 20px; margin: 2px 0px 2px 38px; width: 45%">
                         <h6 class="card-subtitle mb-2 text-muted"><i class="bi bi-dot"></i>Information supplementaire</h6>
                         <div class="row">
                             <div class="col-md-4 text-muted">
@@ -183,13 +145,12 @@
                         </div>
                     </div>
                 </div>
-                <hr style="color: rgb(184, 184, 184)">
-                <div class="row pt-3">
+                {{-- <hr style="color: #b8b8b8"> --}}
+                <div class="row pt-3 mb-2">
                     <div class="col-md-12">
-                        <p>
-                            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary"><i class="bi bi-reply"></i> Retour</a>
-                            {{-- <a href="{{ route('admin.user.edit', ['user_id' => $user->id, 'slug' => $user->slug]) }}" class="btn btn-primary"><i class="bi bi-gear"></i> Paramettre</a> --}}
-                        </p>
+                        {{-- <p>
+                            <a href="{{ route('admin.user.edit', ['user_id' => $user->id, 'slug' => $user->slug]) }}" class="btn btn-primary"><i class="bi bi-gear"></i> Paramettre</a>
+                        </p> --}}
                     </div>
                 </div>
             </div>

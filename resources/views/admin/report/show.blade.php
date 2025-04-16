@@ -5,6 +5,62 @@
 @push('styles')
 <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/r-3.0.3/datatables.min.css" rel="stylesheet">
 <style>
+    /* Bordure externe du tableau */
+    #Table.table.dataTable {
+        border: 1px solid #dee2e6; /* Gris clair */
+        border-radius: 45px; /* Coins légèrement arrondis */
+        border-collapse: collapse; /* Éviter les espaces entre les bordures */
+        width: 100%; /* Assurer une bonne mise en page */
+    }
+
+    /* Lignes internes entre les rangées */
+    .table.dataTable tbody tr {
+        border-bottom: 1px solid #ebeaea; /* Gris clair */
+        /* border-bottom: 1px solid #dee2e6; Gris clair */
+    }
+
+    /* Effet hover léger */
+    .table.dataTable tbody tr:hover {
+        background-color: #f8f9fc; /* Gris clair au survol */
+    }
+
+    /* Alignement des en-têtes */
+    .table.dataTable thead th {
+         background-color: #0a0a33;/* Bleu foncé comme sur ton image */
+        /* background-color: #e4e4e4;  */
+        color: #ececfc;
+        text-align: left;
+    }
+
+    /* Espacement et padding pour un rendu propre */
+    .table.dataTable th, .table.dataTable td {
+        padding: 10px 15px;
+    }
+
+    /************ Old CSS  **********/
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .table.table.dataTable{
+        margin-bottom: 10px;
+    }
+    /* .table-bordered {
+        border-color: #efefef;
+    } */
+
+    .dt-search {
+        margin-bottom: 12px;
+    }
+
+
+
+
+
+
+
+
+
     .table th, .table td {
         vertical-align: middle;
     }
@@ -30,7 +86,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-         /* background-color: #FFD600; Couleur jaune */
+        /* background-color: #FFD600; Couleur jaune */
         /* background-color: #fbf3c4; */
         padding: 20px 40px;
         border-radius: 15px;
@@ -118,40 +174,47 @@
 
         {{-- {{ dd($sales) }} --}}
 
-        @if (!empty($sales))
-            <table id="Table" class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Manager</th>
-                        <th>Entreprise</th>
-                        <th>Offre</th>
-                        <th>Type</th>
-                        <th>Prix</th>
-                        <th>Quantité</th>
-                        <th>Montant Reçu</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($sales as $sale)
-                    <tr>
-                        <td>{{ $sale->manager->name ?? 'N/A' }}</td>
-                        <td>{{ $sale->business->nom_commercial ?? 'N/A' }}</td>
-                        <td>{{ $sale->offer->titre ?? 'N/A' }}</td>
-                        <td>{{ $sale->offer->type ?? 'N/A' }}</td>
-                        <td>{{ number_format($sale->prix, 0, ',', '.') }} FCFA</td>
-                        <td>{{ $sale->quantite }}</td>
-                        <td>{{ number_format($sale->montant_recu, 0, ',', '.') }} FCFA</td>
-                        <td>{{ $sale->created_at->format('d-m-Y') }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <div>
-                Aucune vente trouvée !
-            </div>
-        @endif 
+        <div class="card">
+            @if (!empty($sales))
+                <table id="Table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Manager</th>
+                            <th>Entreprise</th>
+                            <th>Offre</th>
+                            <th>Type</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Montant Reçu</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sales as $sale)
+                        <tr>
+                            <td>{{ $sale->manager->name ?? 'N/A' }}</td>
+                            <td>{{ $sale->business->nom_commercial ?? 'N/A' }}</td>
+                            <td>{{ $sale->offer->titre ?? 'N/A' }}</td>
+                            <td>{{ $sale->offer->type ?? 'N/A' }}</td>
+                            <td>{{ number_format($sale->prix, 0, ',', '.') }} FCFA</td>
+                            <td>{{ $sale->quantite }}</td>
+                            <td>{{ number_format($sale->montant_recu, 0, ',', '.') }} FCFA</td>
+                            <td>{{ $sale->created_at->format('d-m-Y') }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <div class="mx-auto my-auto">
+                    <div class="text-center py-5">
+                        <p><img src="{{ asset('/admin/assets/img/research-paper.png') }}" style="height: 70px" alt="" srcset=""></p>
+                        <p class="text-gray" style="color: #a9a8a8; font-size: 20px">Aucun resultat trouvé</p>
+                    </div>
+                </div>
+            @endif 
+        </div>
+
+        
             
         
 

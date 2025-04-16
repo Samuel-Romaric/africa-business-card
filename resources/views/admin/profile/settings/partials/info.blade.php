@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('admin.user.update-personal-info') }}" enctype="multipart/form-data"> 
+<form method="POST" action="{{ route('admin.profile.update-personal-info') }}" enctype="multipart/form-data"> 
     @csrf
     <input type="hidden" value="{{ $user->id }}" name="user_id" id="user_id">
     <input type="hidden" value="{{ $user->slug }}" name="slug" id="user_slug">
@@ -42,6 +42,24 @@
                 <span class="input-group-text"><i class="bi bi-whatsapp"></i></span>
                 <input type="text" value="{{ $user->whatsapp }}" name="whatsapp" class="form-control" id="whatsapp">
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="pays" class="form-label">Pays</label>
+            <input type="text" value="{{ $user->pays }}" name="pays" class="form-control" id="pays">
+        </div>
+        <div class="col-md-3">
+            <label for="ville" class="form-label">Ville</label>
+            <input type="text" value="{{ $user->ville }}" name="ville" class="form-control" id="ville">
+        </div>
+        <div class="col-md-3">
+            <label for="commune" class="form-label">Commune</label>
+            <input type="text" value="{{ $user->commune }}" name="commune" class="form-control" id="commune">
+        </div>
+        <div class="col-md-3">
+            <label for="departement" class="form-label">Departement</label>
+            <input type="text" value="{{ $user->departement }}" name="departement" class="form-control" id="departement">
         </div>
     </div>
 

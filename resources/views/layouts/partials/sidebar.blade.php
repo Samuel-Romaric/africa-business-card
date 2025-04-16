@@ -39,7 +39,7 @@
                         </li> 
                         <li class="nav-item">
                             <a href="{{ route('admin.subscription.index') }}" class="nav-link {{ isActiveRoute('admin.subscription.index') }}" style="color:white">
-                                <i class="nav-icon bi bi-card-checklist text-white"></i>
+                                <i class="nav-icon bi bi-credit-card text-white"></i>
                                 <p>Souscription</p>
                             </a>
                         </li>

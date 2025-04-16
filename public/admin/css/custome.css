@@ -106,9 +106,105 @@
     font-weight: bold;
 }
 
+/********************************************************
+*               Customize status class                  *
+*********************************************************/
+.status {
+    padding: 1.5px 8px 1.5px 8px;
+    border-radius: 30px;
+    font-size: 15px;
+    align-items: center;
+    font-weight: bold;
+}
+
+.status2-success {
+    color: #0fac82;
+    /* background-color: #ddfff3; */
+}
+
+.status2-warning {
+    color: #ff9b00;
+    /* background-color: #fef7ea;* #fbe8ca; */
+}
+
+.status2-danger {
+    color: #cf2213;
+    /* background-color: #fdc5c5; */
+}
 
 
+.status-success {
+    border: 0.5px solid #ddfff3;
+    color: #3dc094; /** #58be9c */
+    background-color: #ddfff3;
+    padding: 1.5px 18px 1.5px 18px;
+    border-radius: 50px;
+}
+
+.status-danger {
+    border: 0.5px solid #fff1e8;
+    color: #e34d2f; /** #ea745c */
+    background-color: #fff1e8;
+    padding: 1.5px 12px 1.5px 12px;
+    border-radius: 50px;
+}
+
+.status-size-12 {
+    font-size: 12px;
+}
 /* .btn-primary {
     background-color: #ff5733 !important; /* Nouvelle couleur de fond 
     border-color: #ff5733 !important;  Nouvelle couleur de bordure 
 } */
+
+
+/********************************************************
+*               Customize DataTable class               *
+*********************************************************/
+    /* Bordure externe du tableau */
+    #Table.table.dataTable {
+        border: 1px solid #dee2e6; /* Gris clair */
+        border-radius: 45px; /* Coins légèrement arrondis */
+        border-collapse: collapse; /* Éviter les espaces entre les bordures */
+        width: 100%; /* Assurer une bonne mise en page */
+    }
+
+    /* Lignes internes entre les rangées */
+    .table.dataTable tbody tr {
+        border-bottom: 1px solid #ebeaea; /* Gris clair */
+        /* border-bottom: 1px solid #dee2e6; Gris clair */
+    }
+
+    /* Effet hover léger */
+    .table.dataTable tbody tr:hover {
+        background-color: #f8f9fc; /* Gris clair au survol */
+    }
+
+    /* Alignement des en-têtes */
+    .table.dataTable thead th {
+         background-color: #0a0a33;/* Bleu foncé comme sur ton image */
+        /* background-color: #e4e4e4;  */
+        color: #ececfc;
+        text-align: left;
+    }
+
+    /* Espacement et padding pour un rendu propre */
+    .table.dataTable th, .table.dataTable td {
+        padding: 10px 15px;
+    }
+
+    /************ Old CSS  **********/
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .table.table.dataTable{
+        margin-bottom: 10px;
+    }
+    /* .table-bordered {
+        border-color: #efefef;
+    } */
+
+    .dt-search {
+        margin-bottom: 12px;
+    }

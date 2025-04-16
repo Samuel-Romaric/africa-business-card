@@ -61,6 +61,14 @@ class Business extends Model implements HasMedia
         return $activitySector->titre;
     }
 
+    function getSubActivitySector() {
+        $sector = $this->getActivitySector();
+        // dd($sector->subSectors()->first());
+        // return $sector->subSectors()->get();
+        $subSector = $sector->subSectors()->first();
+        return $subSector;
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('businessLogo')

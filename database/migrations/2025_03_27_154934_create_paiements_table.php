@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
+            
+            // $table->string('type'); // Subscriptions Or Sales
+            $table->enum('type', ['souscription', 'vente']); // Subscriptions Or Sales
+            $table->string('id_transaction');
+            $table->string('method'); // OM, Wave, MTN, etc
+            $table->string('amount'); // 10 000 XOF, etc
+            $table->string('status'); // Effectue or Echoue
+            
+            $table->foreignId('author_id'); // Author
+            
             $table->timestamps();
         });
     }

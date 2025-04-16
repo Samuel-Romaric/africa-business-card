@@ -13,6 +13,6 @@ class ActivitySector extends Model
     }
 
     function subSectors() {
-        return $this->hasMany(ActivitySubSector::class);
+        return $this->hasMany(ActivitySubSector::class, 'activity_sectors_id');
     }
 }

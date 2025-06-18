@@ -157,6 +157,7 @@
                 <ol class="breadcrumb float-sm-end">
                     <div class="row">
                         <div class="col-sm-12">
+                            <a href="{{ route('admin.business.index') }}" class="btn btn-outline-secondary"><i class="bi bi-reply"></i></a>
                             <button class="btn btn-outline-secondary mx-2" id="toggleFilter"><i class="bi bi-filter"></i> Filtre</button>
                             <a href="{{ route('admin.business.offer.create', ['item_id' => $business->id, 'slug' => $business->slug]) }}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Ajouter une offre</a>
                         </div>

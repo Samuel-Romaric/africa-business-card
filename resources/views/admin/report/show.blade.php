@@ -174,7 +174,7 @@
 
         {{-- {{ dd($sales) }} --}}
 
-        <div class="card">
+        <div class="card mx-4">
             @if (!empty($sales))
                 <table id="Table" class="table table-hover">
                     <thead>

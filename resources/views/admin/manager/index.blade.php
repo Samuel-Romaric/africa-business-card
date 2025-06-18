@@ -163,7 +163,7 @@
                             </div>
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
-                                  <img src="{{ $item->getAvatarFullUrl() }}" alt="User Avatar" class="img-size-50 rounded-circle me-3 avatar-border">
+                                    <a href="{{ route('admin.manager.show', $item->user->id) }}"><img src="{{ $item->getAvatarFullUrl() }}" alt="User Avatar" class="img-size-50 rounded-circle me-3 avatar-border"></a>
                                 </div>
                                 <div class="flex-grow-1" style="margin-top: 8px">
                                     <h3 class="dropdown-item-title">

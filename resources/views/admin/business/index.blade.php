@@ -147,7 +147,7 @@
                     <td>
                         <div class="d-flex" style="justify-content: center;">
                             <div class="flex-shrink-0">
-                              <img src="{{ $item->getBusinessLogoFullUrl() }}" alt="Business Logo" class="img-size-50 rounded me-3" style="height: 50px; width: 50px; border: 1px solid #eeeeee">
+                                <a href="{{ route('admin.business.offers.show', ['item_id' => $item->id, 'slug' => $item->slug]) }}"><img src="{{ $item->getBusinessLogoFullUrl() }}" alt="Business Logo" class="img-size-50 rounded me-3" style="height: 50px; width: 50px; border: 1px solid #eeeeee"></a>
                             </div>
                             <div class="flex-grow-1" style="margin-top: 8px">
                                 <h3 class="dropdown-item-title">

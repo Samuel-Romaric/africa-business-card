@@ -40,4 +40,9 @@ class Commercial extends Model implements HasMedia
 
         return $link;
     }
+
+    public function activitySector()
+    {
+        return $this->belongsTo(ActivitySector::class, 'activity_sector_id');
+    }
 }

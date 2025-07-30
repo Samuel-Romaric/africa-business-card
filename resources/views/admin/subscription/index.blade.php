@@ -129,25 +129,28 @@
             <table id="Table" class="table table-hover ">
                 <thead>
                     <tr>
-                        <th>Entreprises</th>
-                        <th>Periode de validité</th>
-                        <th>Carte</th>
-                        <th>Nombre d'offre</th>
-                        <th>Quatité vendu</th>
-                        <th>Date de souscriptions</th>
-                        {{-- <th>Actions</th> --}}
+                        <th>#</th>
+                        <th>Nom du client</th>
+                        <th>Offres & Validité</th>
+                        <th>Montant</th>
+                        <th>Quantité</th>
+                        <th>Type</th>
+                        <th>Carte utilisée</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($subscription as $item)
+                @foreach($subscriptions as $item)
                     <tr>
+                        <td>{{ 1 }}</td>
                         <td>{{ $item->business->nom_commercial }}</td>
                         <td>{{ $item->nom_client }}</td>
                         <td>{{ $item->nom_client }}</td>
-                        <td>{{ $item->nombre_offre }}</td>
-                        <td>{{ $item->quantite }}</td>
-                        <td>{{ $item->montant_recu }}</td>
-                        <td>
+                        <td>{{ $item->nom_client }}</td>
+                        <td>{{ $item->nom_client }}</td>
+                        <td>{{ $item->nom_client }}</td>
+                        <td>{{ $item->nom_client }}</td>
+                        {{-- <td>
                             <a href="javascript:void(0)" onclick="openUpdateModal({{ $item->id }})"  class="btn btn-outline-success btn-sm">
                                 <i class="bi bi-pencil-square"></i> Modifier
                                 
@@ -155,7 +158,7 @@
                             <a onclick="return confirm('Voulez-vous supprimer cette vente ?')" href="{{ route('admin.sale.delete', $item->id) }}" class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-trash"></i> Supprimer
                             </a>
-                        </td> 
+                        </td>  --}}
                     </tr>
                 @endforeach
                 </tbody>
@@ -175,7 +178,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-colvis-3.2.0/b-html5-3.2.0/b-print-3.2.0/r-3.0.3/datatables.min.js"></script>
-<script src="{{ asset('admin/js/sweetalert2@11.js') }}"></script>
+{{-- <script src="{{ asset('admin/js/sweetalert2@11.js') }}"></script> --}}
 <script>
     let get_sale_route = "{{ route('admin.sale.get-by-ajax') }}";
     let get_manager_saler_route = "{{ route('admin.sale.get-user-saler-by-ajax') }}";
@@ -225,7 +228,6 @@
                 } else {
                     // toastr.error(result.message);
                     console.log('No data find...');
-                    
                 }
             },
             error: (e) => {

@@ -74,8 +74,8 @@
     <div class="container-fluid"> 
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Commercial</h3>
-                <h5 class="mb-0">Information sur le commercial</h5>
+                <h3 class="mb-0">Commercial off</h3>
+                <h5 class="mb-0">Information sur le commercial off</h5>
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">

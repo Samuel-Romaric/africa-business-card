@@ -10,8 +10,8 @@ class SubscriptionController extends Controller
 {
     //
     function index() {
-        $subscription = Souscription::all();
+        $subscriptions = Souscription::orderBy('created_at', 'desc')->get();
         // dd($subscription);
-        return view('admin.subscription.index', compact('subscription'));
+        return view('admin.subscription.index', compact('subscriptions'));
     }
 }

@@ -16,11 +16,12 @@ class CommerciauxController extends Controller
         $type = $request->get('type');
         $is_blocked = $request->get('is_blocked');
         $search = $request->get('search');
+        $activity_sector_id = (int) $request->get('activity_sector');
 
         $commerciauxQuery = Commercial::with('user')  // Nous utilisons "with" pour charger la relation user
                             ->orderBy('created_at', 'DESC');
 
-        if (isset($type) || isset($is_blocked) || isset($search)) {
+        if (isset($type) || isset($is_blocked) || isset($search) || isset($activity_sector)) {
             
             if ($type && $type !== 'all') {
                 $commerciauxQuery->where('type', $type);
@@ -30,6 +31,13 @@ class CommerciauxController extends Controller
             if ($is_blocked !== 'all') {
                 $commerciauxQuery->whereHas('user', function ($query) use ($is_blocked) {
                     $query->where('is_blocked', $is_blocked);
+                });
+            }
+            
+            // Filtrer par secteur d'activité
+            if ($activity_sector_id && $activity_sector_id !== 'all') {
+                $commerciauxQuery->whereHas('user', function ($query) use ($activity_sector_id) {
+                    $query->where('activity_sector_id', $activity_sector_id);
                 });
             }
 
@@ -56,9 +64,9 @@ class CommerciauxController extends Controller
 
         // Paginer les résultats avec les filtres appliqués
         $commerciaux = $commerciauxQuery->paginate(12);
-        $activitySector = ActivitySector::all()->pluck('id', 'titre');
+        // $activitySector = ActivitySector::all()->pluck('id', 'titre');
         
-        return view('admin.commerciaux.index', compact('commerciaux', 'activitySector'));
+        return view('admin.commerciaux.index', compact('commerciaux'));
     }
 
     function blockedCommercial($user_id) {

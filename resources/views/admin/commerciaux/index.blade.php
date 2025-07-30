@@ -117,8 +117,8 @@
     <div class="container-fluid"> 
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Commerciaux</h3>
-                <h5 class="mb-0">Liste des commerciaux</h5>
+                <h3 class="mb-0">Commerciaux off</h3>
+                <h5 class="mb-0">Liste des commerciaux off</h5>
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">
@@ -135,7 +135,15 @@
         <div class="mt-3 filter-block" style="display: none;">
             <form action="{{ route('admin.commerciaux.index') }}" method="GET" id="filter-form">
                 <div class="row">
-                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <select name="activity_sector" class="form-control" id="activity_sector">
+                            <option value="all" {{ old('activity_sector', request('activity_sector') == 'all' ? 'selected' : '') }}>Tous les secteurs</option>
+                            <option value="1" {{ old('activity_sector', request('activity_sector') == '1' ? 'selected' : '') }}>Secteur primaire</option>
+                            <option value="2" {{ old('activity_sector', request('activity_sector') == '2' ? 'selected' : '') }}>Secteur secondaire</option>
+                            <option value="3 {{ old('activity_sector', request('activity_sector') == '3' ? 'selected' : '') }}">Secteur tertiaire</option>
+                            <option value="4" {{ old('activity_sector', request('activity_sector') == '4' ? 'selected' : '') }}>Secteur premium</option>
+                        </select>
+                    </div>
                     <div class="col-md-2">
                         <select name="type" class="form-control" id="type">
                             <option value="all" {{ old('type', request('type')) == 'all' ? 'selected' : '' }}>Profiles</option>

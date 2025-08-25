@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom_commercial');
             $table->string('slug');
+            $table->enum('reseau', ['Marketing Transactionnel', 'Marketing Relationnel'])->nullable(); // Ajout du champ 'reseau' Marketing Transactionnel ou Marketing Relationnel
             $table->string('forme_juridique');
             $table->string('num_rccm');
             $table->string('capital')->nullable();

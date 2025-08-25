@@ -27,6 +27,7 @@ class User extends Authenticatable implements HasMedia
         'firstname',
         'slug',
         'email',
+        'reseau',
         'role',
         'password',
         'is_blocked',

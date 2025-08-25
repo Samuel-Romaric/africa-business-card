@@ -13,6 +13,7 @@ class Business extends Model implements HasMedia
     protected $fillable = [
         'name',
         'slug',
+        'reseau',
         'activity',
         'commercial_register',
         'nomber_of_offers',

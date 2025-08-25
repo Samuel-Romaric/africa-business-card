@@ -20,6 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
+            $table->enum('reseau', ['Marketing Transactionnel', 'Marketing Relationnel'])->nullable(); // Ajout du champ 'reseau' Marketing Transactionnel ou Marketing Relationnel
+
             $table->enum('role', ['admin', 'manager', 'commercial', 'business'])->nullable();
             $table->boolean('is_global_admin')->default(0);
             $table->string('num_cni')->nullable();

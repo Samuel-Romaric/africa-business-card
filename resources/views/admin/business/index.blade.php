@@ -137,6 +137,7 @@
                     <th>Secteur d'activité</th>
                     <th>Régistre de commerce</th>
                     <th>Offres</th>
+                    <th>Réseau</th>
                     <th>Statut</th>
                     <th>Actions</th>
                 </tr>
@@ -162,6 +163,7 @@
                     <td>{{ $item->getActivitySectorTitle() }} <br> <span class="text-muted">{{ $item->getSubActivitySector()->titre }}</span></td>
                     <td class="text-muted">{{ $item->num_rccm }}</td>
                     <td class="text-muted">{{ $item->getTotalOffer() }}</td>
+                    <td>{{ $item->reseau }}</td>
                     <td>{!! $item->isBlocked() ? '<span class="status status2-danger"><i class="bi bi-record-fill" style="font-size: 10px"></i> Bloqué</span>' : '<span class="status status2-success"><i class="bi bi-record-fill" style="font-size: 10px"></i> Actif</span>' !!}</td>
                     {{-- <td>{!! $item->isBlocked() ? '<span class="badge text-bg-danger">Bloqué</span>' : '<span class="badge text-bg-success">Actif</span>' !!}</td> --}}
                     <td>

@@ -95,7 +95,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <h3 class="mb-0">Souscription</h3>
-                <h5 class="mb-0">Liste des souscriptions</h5>
+                <h5 class="mb-0">Liste des souscriptions des entreprises</h5>
             </div>
             <div class="col-sm-6">
                 <div class="mb-3 mt-3 row">
@@ -134,7 +134,7 @@
                         <th>Offres & Validité</th>
                         <th>Montant</th>
                         <th>Quantité</th>
-                        <th>Type</th>
+                        <th>Réseau</th>
                         <th>Carte utilisée</th>
                         <th>Date</th>
                     </tr>

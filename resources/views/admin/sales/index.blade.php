@@ -131,9 +131,9 @@
                         <th>Entreprises</th>
                         <th>Client</th>
                         <th>Manager</th>
-                        <th>Telephone</th>
-                        <th>Quatité</th>
-                        <th>Prix unitaire</th>
+                        {{-- <th>Telephone</th> --}}
+                        <th>Prix unit.</th>
+                        <th>Qte</th>
                         <th>Total</th>
                         <th></th>
                     </tr>
@@ -144,11 +144,17 @@
                         <td>{{ $item->offer->titre }}</td>
                         <td>{{ $item->offer->type }}</td>
                         <td>{{ $item->business->nom_commercial }}</td>
-                        <td>{{ $item->nom_client }}</td>
-                        <td>{{ $item->manager->name }}</td>
-                        <td>{{ $item->telephone_client }}</td>
-                        <td>{{ $item->quantite }}</td>
+                        <td>
+                            {{ $item->nom_client }} <br> <span class="text-muted">{{ $item->telephone_client }}</span>
+                            {{-- {{ $item->nom_client }} --}}
+                        </td>
+                        <td>
+                            {{ $item->manager->name }} <br> <span class="text-muted">{{ $item->manager->telephone }}</span>
+                            {{-- {{ $item->manager->name }} --}}
+                        </td>
+                        {{-- <td>{{ $item->telephone_client }}</td> --}}
                         <td>{{ $item->prix }}</td>
+                        <td>{{ $item->quantite }}</td>
                         <td>{{ $item->total }}</td>
                         <td>
                             <a href="javascript:void(0)" onclick="openUpdateModal({{ $item->id }})"  class="btn btn-outline-success btn-sm">

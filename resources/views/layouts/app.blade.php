@@ -10,7 +10,7 @@
     <meta name="keywords" content="bootstrap 5, admin dashboard, etc.">
     <title>@yield('title', 'Dashboard |') {{ config('app.name') }} </title>
 
-    <link rel="shortcut icon" href="{{ asset('/admin/assets/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/admin/assets/africa-business-card-new-logo.png') }}" type="image/x-icon">
 
     <!-- Global styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"

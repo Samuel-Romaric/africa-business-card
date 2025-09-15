@@ -1,7 +1,7 @@
 <aside class="app-sidebar " data-bs-theme="dark" style="background-color:#010140;color:white">
     <div class="sidebar-wrapper">
         <a href="{{ route('admin.dashboard') }}">
-            <img src="{{ asset('/admin/assets/logo.png') }}" style="width: auto; height: 8em; display: block; margin: auto" alt="Africa business card Logo"
+            <img src="{{ asset('/admin/assets/africa-business-card-new-logo.png') }}" style="width: auto; height: 8em; display: block; margin: auto" alt="Africa business card Logo"
                 class="brand-image shadow">
         </a>
         <nav class="mt-2">

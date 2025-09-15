@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('/admin/css/adminlte.css') }}">
-    <link rel="shortcut icon" href="{{ asset('/admin/assets/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/admin/assets/africa-business-card-new-logo.png') }}" type="image/x-icon">
     <title>@yield('title') {{ config('app.name') }}</title>
     <style>
         * {
@@ -106,7 +106,7 @@
 <body>
     <div class="container">
         <div class="logo-section">
-            <img src="{{ asset('/admin/assets/logo.png') }}" alt="Logo Africa Business Card">
+            <img src="{{ asset('/admin/assets/africa-business-card-new-logo.png') }}" alt="Logo Africa Business Card">
         </div>
         <div class="vertical-separator"></div>
         <div class="form-section">
